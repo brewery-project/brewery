@@ -1,0 +1,10 @@
+<%= simple_form_for @user, html: { class: 'form-vertical' } do |signup_form| %>
+	<%= signup_form.input :email %>
+
+	<%= signup_form.input :password %>
+	<%= signup_form.input :password_confirmation %>
+
+	<div class="form-actions">
+		<%= signup_form.submit class: ['btn', 'btn-primary'] %>
+	</div>
+<% end %>

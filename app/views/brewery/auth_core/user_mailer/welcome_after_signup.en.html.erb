@@ -1,0 +1,12 @@
+<h1>Welcome to <%= t 'global.app_name' %> </h1>
+<p>
+	We are happy that you subscribed to our site, but we still need
+	you one thing to do.<br />
+	To verify that this e-mail address really belongs to you, we need
+	you to click on <%= link_to 'this confirmation link', confirm_auth_core_users_url(key: @user.perishable_token) %>.
+</p>
+
+<p>
+	<b>Important</b> if not you but someone using your e-mail address signed up, please don't
+	click on this link, and just ignore this e-mail.
+</p>

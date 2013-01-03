@@ -15,5 +15,9 @@ gemspec
 gem 'rails',     github: 'rails/rails'
 gem 'arel',      github: 'rails/arel'
 
+gem 'sass-rails',   github: 'rails/sass-rails'
+
 # To use debugger
 # gem 'debugger'
+
+gem 'simple_form', github: 'plataformatec/simple_form', branch: 'rails_4'

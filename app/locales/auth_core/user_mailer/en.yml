@@ -1,0 +1,5 @@
+en:
+  user:
+    mailer:
+      welcome_after_signup:
+        subject: "Welcome to %{app_name}"

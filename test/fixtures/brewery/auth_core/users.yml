@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+user_1:
+  email: 'already_used@example.org'
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("user_1" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+  single_access_token: <%= Authlogic::Random.friendly_token %>
+  perishable_token: <%= Authlogic::Random.friendly_token %>

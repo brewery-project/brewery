@@ -1,0 +1,1 @@
+Rails.application.config.i18n.load_path += Dir[Brewery::Engine.root.join('app', 'locales', '**', '*.{rb,yml}').to_s]
