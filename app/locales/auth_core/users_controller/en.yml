@@ -1,0 +1,6 @@
+en:
+  brewery:
+    auth_core:
+      users:
+        create:
+          success: You have successfully created your account!

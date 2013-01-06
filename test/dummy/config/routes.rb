@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'application#index'
 
-  mount Brewery::Engine => "/brewery"
+  mount Brewery::Engine => "/"
 end

@@ -10,7 +10,7 @@ module Brewery
       @user = AuthCore::User.new(user_params(true))
 
       if @user.save
-        redirect_to main_app.root_path
+        redirect_to main_app.root_path, notice: I18n.t('create.success', scope: i18n_scope)
       else
         render :new
       end
@@ -37,6 +37,10 @@ module Brewery
       else
         params.require(:auth_core_user).permit(*base_allowed)
       end
+    end
+
+    def i18n_scope
+      return [:brewery, :auth_core, :users]
     end
   end
 end

@@ -15,7 +15,18 @@ gemspec
 gem 'rails',     github: 'rails/rails'
 gem 'arel',      github: 'rails/arel'
 
-gem 'sass-rails',   github: 'rails/sass-rails'
+group :assets do
+  gem 'sprockets-rails', github: 'rails/sprockets-rails'
+  gem 'sass-rails',   github: 'rails/sass-rails'
+  gem 'coffee-rails', github: 'rails/coffee-rails'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyracer', platforms: :ruby
+
+  gem 'uglifier', '>= 1.0.3'
+end
+gem 'jquery-rails',     github: 'rails/jquery-rails'
+gem 'turbolinks'#,     github: 'rails/turbolinks', branch: ''
 
 # To use debugger
 # gem 'debugger'
