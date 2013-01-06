@@ -22,7 +22,7 @@ module Brewery
 
       #assert_redirected_to main_app.root_url
       assert_response :redirect
-      flash[:notice].wont_be_nil
+      flash[:success].wont_be_nil
       flash[:error].must_be_nil
 
       user = AuthCore::User.where(email: 'not_yet_used@example.org').first
@@ -32,7 +32,22 @@ module Brewery
     end
 
     test "post create fails and shows form" do
-      #fail "should test"
+      AuthCore::User.where(email: 'not_yet_used@example.org').first.must_be_nil
+
+      post :create, { auth_core_user: { email: 'not_yet_used@example.org', password: 'password', password_confirmation: 'not_the_same_password' }, use_route: :brewery }
+
+      assert_response :success
+      assert_template 'new'
+      flash[:success].must_be_nil
+      flash[:error].wont_be_nil
+
+      user = AuthCore::User.where(email: 'not_yet_used@example.org').first
+      user.must_be_nil
+
+      user = assigns[:user]
+      user.wont_be_nil
+
+      assert_equal user.email, 'not_yet_used@example.org'
     end
 
     test "post create ignores all internal fields" do
@@ -49,11 +64,31 @@ module Brewery
     end
 
     test "get confirm activates user" do
-      #fail "should test"
+      user = brewery_auth_core_users(:user_1)
+
+      assert_difference 'AuthCore::User.where(active: true).count', 1 do
+        get :confirm, { key: user.perishable_token, use_route: :brewery }
+      end
+
+      assert_response :redirect
+      flash[:success].wont_be_nil
+      flash[:error].must_be_nil
+
+      active_user = AuthCore::User.where(email: user.email).first
+      assert active_user.active?
     end
 
     test "get confirm with invalid key does not activate anyone" do
-      #fail "should test"
+      assert_no_difference 'AuthCore::User.where(active: true).count' do
+        get :confirm, { key: 'z', use_route: :brewery }
+      end
+
+      assert_response :redirect
+      flash[:success].must_be_nil
+      flash[:error].wont_be_nil
+
+      active_user = AuthCore::User.where(email: brewery_auth_core_users(:user_1).email).first
+      assert_not active_user.active?
     end
   end
 end

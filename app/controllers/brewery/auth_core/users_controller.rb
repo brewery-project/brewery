@@ -10,8 +10,9 @@ module Brewery
       @user = AuthCore::User.new(user_params(true))
 
       if @user.save
-        redirect_to main_app.root_path, notice: I18n.t('create.success', scope: i18n_scope)
+        redirect_to main_app.root_path, success: I18n.t('create.success', scope: i18n_scope)
       else
+        flash[:error] = I18n.t('create.failure', scope: i18n_scope)
         render :new
       end
     end
@@ -20,11 +21,11 @@ module Brewery
       @user = AuthCore::User.where(perishable_token: params[:key]).first
 
       if @user.nil?
-        redirect_to main_app.root_path
+        redirect_to main_app.root_path, error: I18n.t('confirm.failure', scope: i18n_scope)
       else
         @user.active = true
         @user.save! # Failure on this should not happen.
-        redirect_to main_app.root_path
+        redirect_to main_app.root_path, success: I18n.t('confirm.success', scope: i18n_scope)
       end
     end
 

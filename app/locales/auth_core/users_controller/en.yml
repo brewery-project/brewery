@@ -4,3 +4,7 @@ en:
       users:
         create:
           success: You have successfully created your account!
+          failure: We were not able to create your user ccount.
+        confirm:
+          success: Your account is now fully activated.
+          failure: We were not able to activate this account.
