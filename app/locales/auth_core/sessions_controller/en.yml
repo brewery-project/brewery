@@ -1,0 +1,9 @@
+en:
+  brewery:
+    auth_core:
+      sessions:
+        create:
+          success: You are now logged in.
+          failure: We were not able to log you in.
+        destroy:
+          success: You are now logged out.

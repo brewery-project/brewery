@@ -1,0 +1,11 @@
+<h1>Login</h1>
+
+<%= simple_form_for @user_session, url: auth_core_login_path, html: { class: 'form-vertical' } do |sigin_form| %>
+
+	<%= sigin_form.input :email %>
+	<%= sigin_form.input :password %>
+
+	<div class="form-actions">
+		<%= sigin_form.submit class: [ 'btn', 'btn-primary' ] %>
+	</div>
+<% end %>

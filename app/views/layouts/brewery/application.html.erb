@@ -11,6 +11,19 @@
 </head>
 <body>
 
+	<% if current_user %>
+		<%= current_user.email %>
+		<%= link_to 'Logout', brewery.auth_core_logout_path %>
+	<% end %>
+
+	<% flash.keys.each do |flash_type| %>
+		<p class="alert alert-<%= flash_type %>">
+			<%= flash[flash_type] %>
+
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+		</p>
+	<% end %>
+
 <%= yield %>
 
 </body>
