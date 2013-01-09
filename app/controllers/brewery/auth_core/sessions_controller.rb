@@ -18,7 +18,7 @@ module Brewery
 
     def destroy
       session = AuthCore::UserSession.find
-      session.destroy
+      session.destroy if session
 
       redirect_to main_app.root_url, success: I18n.t('destroy.success', scope: i18n_scope)
     end

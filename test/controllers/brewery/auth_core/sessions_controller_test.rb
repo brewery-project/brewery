@@ -47,5 +47,14 @@ module Brewery
       assert_not_nil flash[:success]
       assert_nil flash[:error]
     end
+
+    test "do logout as anonymous user" do
+      get :destroy, use_route: :brewery
+
+      assert_response :redirect
+      assert_nil AuthCore::UserSession.find
+      assert_not_nil flash[:success]
+      assert_nil flash[:error]
+    end
   end
 end
