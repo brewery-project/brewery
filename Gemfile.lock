@@ -96,6 +96,7 @@ PATH
     brewery (0.0.1)
       authlogic (~> 3.1.2)
       bootstrap-sass (~> 2.2.2.0)
+      cancan (~> 1.6.8)
 
 GEM
   remote: https://rubygems.org/
@@ -109,6 +110,7 @@ GEM
     bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
     builder (3.1.4)
+    cancan (1.6.8)
     code_analyzer (0.3.1)
       sexp_processor
     coffee-script (2.2.0)

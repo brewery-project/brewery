@@ -3,10 +3,14 @@ require_dependency "brewery/application_controller"
 module Brewery
   class AuthCore::UsersController < ApplicationController
     def new
+      authorize! :create, AuthCore::User
+
       @user = AuthCore::User.new
     end
 
     def create
+      authorize! :create, AuthCore::User
+
       @user = AuthCore::User.new(user_params(true))
 
       if @user.save

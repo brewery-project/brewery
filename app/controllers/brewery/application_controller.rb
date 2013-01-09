@@ -13,6 +13,10 @@ module Brewery
     end
     helper_method :current_user
 
+    def current_ability
+      @current_ability ||= AuthCore::Ability.new(current_user)
+    end
+
     protected
     def base_i18n_scope
       self.class.name.sub(/Controller$/, '').underscore.split('/').map do |name|
