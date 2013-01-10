@@ -1,0 +1,1 @@
+Brewery::Engine.load_seed

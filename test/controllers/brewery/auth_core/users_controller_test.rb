@@ -54,12 +54,20 @@ module Brewery
       base_user = { email: 'not_yet_used@example.org', password: 'password', password_confirmation: 'password' }
 
       @@secret_keys.each do |key|
-        user = base_user.clone
-        user[key] = 'RaRaRaRandom4'
+        user_params = base_user.clone
+        email = key.to_s + '_' + user_params[:email]
+        user_params[:email] = email
+        user_params[key] = 'RaRaRaRandom4'
 
-        assert_raise ActionController::UnpermittedParameters do
-          post :create, { auth_core_user: user, use_route: :brewery }
-        end
+        assert_equal 0, AuthCore::User.where(email: email).count
+
+        #assert_raise ActionController::UnpermittedParameters do
+          post :create, { auth_core_user: user_params, use_route: :brewery }
+        #end
+
+        assert_equal 1, AuthCore::User.where(email: email).count
+        user = AuthCore::User.where(email: email).first
+        assert_not_equal user_params[key], user.send(key)
       end
     end
 

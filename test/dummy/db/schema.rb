@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20121229125630) do
+ActiveRecord::Schema.define(version: 20130109204211) do
+
+  create_table "brewery_auth_core_roles", force: true do |t|
+    t.string  "name",              limit: 128
+    t.string  "authorizable_type", limit: 128
+    t.integer "authorizable_id"
+    t.integer "parent_id"
+    t.boolean "hidden",                        default: true
+  end
+
+  add_index "brewery_auth_core_roles", ["name", "authorizable_type", "authorizable_id"], name: "index_brewery_auth_core_roles_unique", unique: true
+
+  create_table "brewery_auth_core_roles_brewery_auth_core_users", id: false, force: true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "brewery_auth_core_roles_brewery_auth_core_users", ["user_id", "role_id"], name: "index_brewery_auth_core_roles_and_users", unique: true
 
   create_table "brewery_auth_core_users", force: true do |t|
     t.string   "email",                               null: false
