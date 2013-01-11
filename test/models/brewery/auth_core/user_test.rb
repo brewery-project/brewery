@@ -59,6 +59,24 @@ module Brewery
       end
     end
 
+    test "display_name returns email if name not set" do
+      user = brewery_auth_core_users(:user_1)
+
+      assert_equal user.email, user.display_name
+    end
+
+    test "display_name returns other_names if names all set" do
+      user = brewery_auth_core_users(:user_2_with_full_names)
+
+      assert_equal user.other_names, user.display_name
+    end
+
+    test "display_name returns family_name if only set" do
+      user = brewery_auth_core_users(:user_3_with_family_name)
+
+      assert_equal user.family_name, user.display_name
+    end
+
     private
     def valid_base_user_with_all_data
       valid_user = AuthCore::User.new

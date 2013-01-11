@@ -9,5 +9,15 @@ module Brewery
     after_create do
       AuthCore::UserMailer.welcome_after_signup(self).deliver
     end
+
+    def display_name
+      if !other_names.blank?
+        return other_names
+      elsif !family_name.blank?
+        return family_name
+      else
+        return email
+      end
+    end
   end
 end
