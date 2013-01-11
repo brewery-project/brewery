@@ -1,9 +1,10 @@
 en:
   simple_form:
     labels:
-      auth_core_user:
+      defaults:
         email: E-Mail
         password: Password
+      auth_core_user:        
         password_confirmation: Password (Confirm)
   helpers:
     submit:
