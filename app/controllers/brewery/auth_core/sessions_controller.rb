@@ -15,7 +15,7 @@ module Brewery
       if @user_session.save
         redirect_to main_app.root_url, success: I18n.t('create.success', scope: i18n_scope)
       else
-        flash[:error] = I18n.t('create.failure', scope: i18n_scope)
+        flash.now[:error] = I18n.t('create.failure', scope: i18n_scope)
         render :new
       end
     end

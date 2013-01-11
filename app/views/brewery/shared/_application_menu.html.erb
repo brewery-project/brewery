@@ -1,0 +1,21 @@
+<div class="navbar">
+	<div class="navbar-inner">
+		<%= link_to I18n.t('global.app_name'), main_app.root_path, class: 'brand' %>
+
+		<ul class="nav">
+			<li><%= link_to t('global.home'), main_app.root_path %></li>
+		</ul>
+
+		<% if current_user %>
+			<div class="pull-right">
+				Hi, <%= link_to current_user.display_name, brewery.auth_core_users_path %>
+				<%= link_to t('brewery.auth_core.session.login'), brewery.auth_core_logout_path %>
+			</div>
+		<% else %>
+			<ul class="nav pull-right">
+				<li><%= link_to t('brewery.auth_core.sessions.login'), brewery.auth_core_login_path %></li>
+				<li><%= link_to t('brewery.auth_core.users.signup'), brewery.new_auth_core_users_path %></li>
+			</ul>
+		<% end %>
+	</div>
+</div>

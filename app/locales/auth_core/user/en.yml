@@ -1,4 +1,12 @@
 en:
-  activerecord:
-    users:
-      name: "Test"
+  simple_form:
+    labels:
+      auth_core_user:
+        email: E-Mail
+        password: Password
+        password_confirmation: Password (Confirm)
+  helpers:
+    submit:
+      auth_core_user:
+        create: 'Sign Up!'
+        edit: 'Edit My Profile'

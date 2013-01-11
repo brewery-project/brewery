@@ -11,10 +11,7 @@
 </head>
 <body>
 
-	<% if current_user %>
-		<%= current_user.email %>
-		<%= link_to 'Logout', brewery.auth_core_logout_path %>
-	<% end %>
+	<%= render partial: 'brewery/shared/application_menu' %>
 
 	<% flash.keys.each do |flash_type| %>
 		<p class="alert alert-<%= flash_type %>">

@@ -34,6 +34,9 @@ module Brewery
 
       assert_not_nil flash[:error]
       assert_nil flash[:success]
+      flash.sweep
+      assert_nil flash[:error]
+      assert_nil flash[:success]
     end
 
     test "do logout" do

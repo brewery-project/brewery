@@ -40,6 +40,9 @@ module Brewery
       assert_template 'new'
       flash[:success].must_be_nil
       flash[:error].wont_be_nil
+      flash.sweep
+      flash[:success].must_be_nil
+      flash[:error].must_be_nil
 
       user = AuthCore::User.where(email: 'not_yet_used@example.org').first
       user.must_be_nil
