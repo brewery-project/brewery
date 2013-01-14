@@ -4,6 +4,10 @@
 
 		<ul class="nav">
 			<li><%= link_to t('global.home'), main_app.root_path %></li>
+
+			<% if current_user %>
+				<li><%= link_to 'Admin', brewery.admin_path %></li>
+			<% end %>
 		</ul>
 
 		<% if current_user %>

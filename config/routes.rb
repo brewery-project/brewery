@@ -8,4 +8,8 @@ Brewery::Engine.routes.draw do
     post '/login', action: :create, controller: :sessions
     get '/logout', action: :destroy, controller: :sessions, as: :logout
   end
+
+  namespace :admin do
+    get '/', action: :index, controller: :dashboard
+  end
 end

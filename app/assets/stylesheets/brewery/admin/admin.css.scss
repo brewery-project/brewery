@@ -1,0 +1,52 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+@import 'bootstrap';
+
+/* entypo */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+.dashboard {
+	border-top: solid 3px $textColor;
+
+	.dash-item {
+		display: inline-block;
+		padding: 1em;
+		margin: 1em;
+
+		border: solid 1px $textColor;
+		border-radius: 0.3em;
+		width: 250px;
+		text-align: center;
+
+		h1 {
+			font-size: 1.5em;
+			padding: 0;
+			margin: 0;
+		}
+
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.dash-icon {
+			font-size: 90px;
+			line-height: 1em;
+		}
+
+		.dash-icon:before {
+			padding-top: 0.5em;
+		}
+
+		&:hover {
+			color: $successText;
+			background-color: $successBackground;
+		}
+	}
+}
