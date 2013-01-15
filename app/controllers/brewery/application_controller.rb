@@ -1,6 +1,7 @@
 module Brewery
   class ApplicationController < ActionController::Base
     add_flash_types :error, :success, :info
+    rescue_from CanCan::AccessDenied, with: :on_access_denied
 
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
@@ -26,6 +27,15 @@ module Brewery
 
     def i18n_scope
       @i18n_scope ||= base_i18n_scope
+    end
+
+    private
+    def on_access_denied
+      if current_user.nil?
+        redirect_to brewery.auth_core_login_path, error: I18n.t('brewery.auth_core.sessions.permission_denied_anonymous')
+      else
+        redirect_to main_app.root_path, error: I18n.t('brewery.auth_core.sessions.permission_denied')
+      end
     end
   end
 end

@@ -18,7 +18,7 @@ module Brewery
     end
 
     test "index is denied as non admin user" do
-      login_as(:user_1)
+      login_as(:user_2_with_full_names)
       get :index, use_route: :brewery
 
       assert_response :redirect
