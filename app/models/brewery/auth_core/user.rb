@@ -19,5 +19,31 @@ module Brewery
         return email
       end
     end
+
+    def has_role?(name)
+      return roles.where(name: name, authorizable_type: nil, authorizable_id: nil).exists?
+    end
+
+    def has_role!(name)
+      if AuthCore::Role.where(name: name, authorizable_type: nil, authorizable_id: nil).exists?
+        role = AuthCore::Role.where(name: name, authorizable_type: nil, authorizable_id: nil).first
+      else
+        role = AuthCore::Role.new(name: name)
+      end
+
+      roles << role
+      save!
+    end
+
+    def has_no_role!(name)
+      role = AuthCore::Role.where(name: name, authorizable_type: nil, authorizable_id: nil).first
+
+      return false if role.nil?
+
+      roles.destroy(role)
+      if role.hidden && !role.users.any?
+        role.destroy
+      end
+    end
   end
 end

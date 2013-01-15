@@ -10,15 +10,15 @@ class CreateBreweryAuthCoreRoles < ActiveRecord::Migration
     end
     add_index(:brewery_auth_core_roles, [:name, :authorizable_type, :authorizable_id], unique: true, name: 'index_brewery_auth_core_roles_unique')
 
-    create_table :brewery_auth_core_roles_brewery_auth_core_users, id: false do |t|
+    create_table :brewery_auth_core_roles_users, id: false do |t|
       t.references :user
       t.references :role
 
       t.timestamps
     end
 
-    add_index(:brewery_auth_core_roles_brewery_auth_core_users, [:user_id, :role_id], unique: true, name: 'index_brewery_auth_core_roles_and_users')
-    add_foreign_key(:brewery_auth_core_roles_brewery_auth_core_users, :brewery_auth_core_users, column: 'user_id')
-    add_foreign_key(:brewery_auth_core_roles_brewery_auth_core_users, :brewery_auth_core_roles, column: 'role_id')
+    add_index(:brewery_auth_core_roles_users, [:user_id, :role_id], unique: true, name: 'index_brewery_auth_core_roles_users_id')
+    add_foreign_key(:brewery_auth_core_roles_users, :brewery_auth_core_users, column: 'user_id')
+    add_foreign_key(:brewery_auth_core_roles_users, :brewery_auth_core_roles, column: 'role_id')
   end
 end

@@ -4,8 +4,15 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+superadmin:
+  name: :superadmin
+  hidden: false
+
+role_with_only_user1:
+  name: :role_with_only_user1
+
+user_role:
+  name: :user_role
+
+admin:
+  name: :admin

@@ -7,6 +7,7 @@ user_1:
   persistence_token: <%= Authlogic::Random.hex_token %>
   single_access_token: <%= Authlogic::Random.friendly_token %>
   perishable_token: <%= Authlogic::Random.friendly_token %>
+  roles: superadmin, user_role, role_with_only_user1
 
 user_2_with_full_names:
   email: 'already_used_user2@example.org'
@@ -17,6 +18,7 @@ user_2_with_full_names:
   persistence_token: <%= Authlogic::Random.hex_token %>
   single_access_token: <%= Authlogic::Random.friendly_token %>
   perishable_token: <%= Authlogic::Random.friendly_token %>
+  roles: user_role
 
 user_3_with_family_name:
   email: 'already_used_user3@example.org'
@@ -26,3 +28,12 @@ user_3_with_family_name:
   persistence_token: <%= Authlogic::Random.hex_token %>
   single_access_token: <%= Authlogic::Random.friendly_token %>
   perishable_token: <%= Authlogic::Random.friendly_token %>
+
+user_with_admin_rights:
+  email: 'already_used_admin@example.org'
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("user_with_admin_rights" + salt) %>
+  persistence_token: <%= Authlogic::Random.hex_token %>
+  single_access_token: <%= Authlogic::Random.friendly_token %>
+  perishable_token: <%= Authlogic::Random.friendly_token %>
+  roles: admin

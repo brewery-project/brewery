@@ -77,6 +77,79 @@ module Brewery
       assert_equal user.family_name, user.display_name
     end
 
+    test "test has_role? returns correct value" do
+      user = AuthCore::User.first
+      assert_not user.has_role?(:imaginery_role)
+
+      user = brewery_auth_core_users(:user_1)
+      assert user.has_role?(:superadmin)
+
+      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      assert_not user2.has_role?(:superadmin)
+    end
+
+    test "test has_role! assigns new role" do
+      user = brewery_auth_core_users(:user_1)
+      assert_not user.has_role?(:new_role)
+
+      user.has_role! :new_role
+      assert user.has_role?(:new_role)
+
+      user = brewery_auth_core_users(:user_1)
+      assert user.has_role?(:new_role)
+
+      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      assert_not user2.has_role?(:new_role)
+    end
+
+    test "test has_role! assigns existing role" do
+      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      assert_not user2.has_role?(:superadmin)
+
+      user2.has_role! :superadmin
+      assert user2.has_role?(:superadmin)
+
+      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      assert user2.has_role?(:superadmin)
+    end
+
+    test "test has_no_role! revokes role" do
+      user1 = brewery_auth_core_users(:user_1)
+      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      assert user1.has_role?(:user_role)
+      assert user2.has_role?(:user_role)
+
+      user2.has_no_role!(:user_role)
+      assert user1.has_role?(:user_role)
+      assert_not user2.has_role?(:user_role)
+    end
+
+    test "test has_no_role! cleans up after itself" do
+      user1 = brewery_auth_core_users(:user_1)
+      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      assert user1.has_role?(:role_with_only_user1)
+      assert_not user2.has_role?(:role_with_only_user1)
+
+      user1.has_no_role!(:role_with_only_user1)
+      assert_not user1.has_role?(:role_with_only_user1)
+      assert_not user2.has_role?(:role_with_only_user1)
+
+      assert_not AuthCore::Role.where(name: :role_with_only_user1, authorizable_id: nil, authorizable_type: nil).exists?
+    end
+
+    test "test has_no_role! cleans up after itself unless not hidden role" do
+      user1 = brewery_auth_core_users(:user_1)
+      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      assert user1.has_role?(:superadmin)
+      assert_not user2.has_role?(:superadmin)
+
+      user1.has_no_role!(:superadmin)
+      assert_not user1.has_role?(:superadmin)
+      assert_not user2.has_role?(:superadmin)
+
+      assert AuthCore::Role.where(name: :superadmin, authorizable_id: nil, authorizable_type: nil).exists?
+    end
+
     private
     def valid_base_user_with_all_data
       valid_user = AuthCore::User.new
