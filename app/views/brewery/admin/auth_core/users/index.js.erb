@@ -1,0 +1,14 @@
+$("<%= escape_javascript(render 'users', users: @users) %>").each(function(index,element) {
+	var inserted = $(element).insertBefore($("#infinite-scroll .loading"));
+
+	// TextNodes will not have a tagName, but they crash on those functions.
+	// They might be important to add because some vague javascript and/or CSS
+	// is depending on it, so leave it in.
+	if(element.tagName) {
+		inserted.hide().fadeIn();
+	}
+});
+
+<% if !@users.next_page || @users.out_of_bounds? %>
+	$("#infinite-scroll").data('infinite-last-page-reached', 'true');
+<% end %>

@@ -1,0 +1,11 @@
+<% users.each do |user| %>
+	<tr>
+		<td><%= user.email %></td>
+		<td><%= user.display_name %></td>
+		<td>
+			<%= link_to t('brewery.general.actions.view'), [:admin, user], class: ['btn', 'btn-primary', 'btn-small'] %>
+			<%= link_to t('brewery.general.actions.edit'), [:edit, :admin, user], class: ['btn', 'btn-info', 'btn-small'] %>
+			<%= button_to t('brewery.general.actions.destroy'), [:admin, user], method: :delete, class: ['btn', 'btn-danger', 'btn-small'] %>
+		</td>
+	</tr>
+<% end %>
