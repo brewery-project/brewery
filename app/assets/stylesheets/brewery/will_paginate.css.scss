@@ -1,0 +1,36 @@
+.pagination {
+	text-align: center;
+
+	.previous_page {
+		border-radius: 6px 0 0 6px;
+	}
+
+	.next_page {
+		border-radius: 0 6px 6px 0;
+	}
+
+	a:hover {
+		text-decoration: none;
+	}
+
+	em.current, a, .previous_page, .next_page {
+		border: solid 1px gray;
+		padding: 6px 12px;
+		margin: 0;
+	}
+
+	.current {
+		background-color: #888;
+		color: white;
+	}
+
+	a, .previous_page, .next_page {
+		&:hover {
+			background-color: #eee;
+		}
+
+		&.disabled:hover {
+			background-color: transparent;
+		}
+	}
+}
