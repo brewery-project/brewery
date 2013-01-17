@@ -1,0 +1,29 @@
+<h1><%= t ('brewery.admin.auth_core.users.title') %></h1>
+
+<%= will_paginate @users %>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>EMAIL</th>
+			<th>EMAIL</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+
+	<tbody>
+
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= user.email %></td>
+				<td><%= user.display_name %></td>
+				<td>
+					<%= link_to 'View Details', [:admin, user], class: ['btn', 'btn-primary', 'btn-small'] %>
+					<%= link_to 'Edit', [:edit, :admin, user], class: ['btn', 'btn-info', 'btn-small'] %>
+					<%= button_to 'Destroy', [:admin, user], method: :delete, class: ['btn', 'btn-danger', 'btn-small'] %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<%= will_paginate @users %>

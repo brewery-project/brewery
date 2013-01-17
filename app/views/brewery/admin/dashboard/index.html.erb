@@ -2,6 +2,13 @@
 
 <section class="dashboard">
 	<div class="dash-item">
+		<%= link_to brewery.admin_auth_core_users_path do %>
+			<h1><%= I18n.t 'brewery.admin.auth_core.users.title' %></h1>
+			<i class="entypo-users dash-icon"></i>
+		<% end %>
+	</div>
+
+	<div class="dash-item">
 		<%= link_to main_app.root_path do %>
 			<h1><%= I18n.t 'brewery.admin.dashboard.go_to_site' %></h1>
 			<i class="entypo-home dash-icon"></i>

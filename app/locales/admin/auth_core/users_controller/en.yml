@@ -1,0 +1,6 @@
+en:
+  brewery:
+    admin:
+      auth_core:
+        users:
+          title: Users
