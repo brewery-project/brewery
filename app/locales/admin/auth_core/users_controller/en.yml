@@ -4,3 +4,6 @@ en:
       auth_core:
         users:
           title: Users
+          update:
+            success: Updated User Profile
+            error: We couldn't update the User Profile

@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan', '~> 1.6.8'
   s.add_dependency 'will_paginate', '~> 3.0.4'
   s.add_dependency 'foreigner'
+  s.add_dependency 'email_validator'
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rails_best_practices"

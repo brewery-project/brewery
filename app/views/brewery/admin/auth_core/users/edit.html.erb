@@ -1,0 +1,16 @@
+<article class="user">
+	<h1>
+		<%= @user.display_name %>
+	</h1>
+
+	<%= simple_form_for [:admin, @user], as: :admin_auth_core_user do |user_form| %>
+		<%= user_form.input :other_names %>
+		<%= user_form.input :family_name %>
+
+		<%= user_form.input :new_email, hint: t('simple_form.hints.admin_auth_core_user.new_email', current: @user.email) %>
+
+		<div class="form-actions">
+			<%= user_form.submit class: ['btn', 'btn-primary'] %>
+		</div>
+	<% end %>
+</article>

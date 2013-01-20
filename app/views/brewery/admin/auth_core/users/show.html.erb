@@ -1,0 +1,47 @@
+<article class="user">
+	<h1>
+		<%= @user.display_name %>
+
+		<span class="action-area pull-right">
+			<%= link_to t("brewery.general.actions.edit"), [:edit, :admin, @user], class: ['btn', 'btn-primary'] %>
+		</span>
+	</h1>
+
+	<dl>
+		<dt><%= Brewery::AuthCore::User.human_attribute_name(:other_names) %></dt>
+		<dd><%= @user.other_names %></dd>
+	</dl>
+
+	<dl>
+		<dt><%= Brewery::AuthCore::User.human_attribute_name(:family_name) %></dt>
+		<dd><%= @user.family_name %></dd>
+	</dl>
+
+	<dl>
+		<dt><%= Brewery::AuthCore::User.human_attribute_name(:email) %></dt>
+		<dd><%= @user.email %></dd>
+
+		<% if @user.unconfirmed_new_email? %>
+			<dt><%= Brewery::AuthCore::User.human_attribute_name(:new_email) %></dt>
+			<dd><%= @user.new_email %></dd>
+		<% end %>
+	</dl>
+
+	<dl>
+		<dt><%= Brewery::AuthCore::User.human_attribute_name(:display_name) %></dt>
+		<dd><%= @user.display_name %></dd>
+	</dl>
+
+
+	<h2><%= t("brewery.general.actions_title") %></h2>
+	<p>
+		No actions yet possible. Possible actions include
+
+		<ul>
+			<li>Reset password (technically possible)</li>
+			<li>Resend confirmation mail (technically possible)</li>
+			<li>Manually confirm email (technically possible)</li>
+			<li>Block user</li>
+		</ul>
+	</p>
+</article>

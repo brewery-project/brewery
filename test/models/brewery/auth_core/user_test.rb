@@ -59,6 +59,23 @@ module Brewery
       end
     end
 
+    test "does not allow invalid new_email" do
+      user = brewery_auth_core_users(:user_1)
+      user.new_email = 'not a valid email'
+
+      assert_not user.valid?
+      assert_not_nil user.errors.messages[:new_email]
+    end
+
+    test "unconfirmed_new_email?" do
+      user = brewery_auth_core_users(:user_1)
+
+      assert_not user.unconfirmed_new_email?
+
+      user.new_email = 'some_new_email@example.org'
+      assert user.unconfirmed_new_email?
+    end
+
     test "display_name returns email if name not set" do
       user = brewery_auth_core_users(:user_1)
 

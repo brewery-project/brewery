@@ -4,10 +4,31 @@ en:
       defaults:
         email: E-Mail
         password: Password
-      auth_core_user:        
+      auth_core_user: &auth_core_user_labels
         password_confirmation: Password (Confirm)
+        other_names: Other Names
+        family_name: Family Name
+      admin_auth_core_user:
+        <<: *auth_core_user_labels
+        new_email: New E-Mail
+    hints:
+      auth_core_user: &auth_core_user_hints
+        new_email: "To change your e-mail address"
+      admin_auth_core_user:
+        <<: *auth_core_user_hints
+        new_email: 'Currently %{current}'
+    placeholders:
+      auth_core_user: &auth_core_user_placeholders
+        other_names: John Patrick
+        family_name: Doe
+        e_mail: john_doe@example.org
+        new_email: john_patrick_doe@example.org
+      admin_auth_core_user:
+        <<: *auth_core_user_placeholders
   helpers:
     submit:
       auth_core_user:
         create: 'Sign Up!'
-        edit: 'Edit My Profile'
+        update: 'Edit My Profile'
+      admin_auth_core_user:
+        update: 'Update User Profile'

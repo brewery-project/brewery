@@ -10,6 +10,8 @@ module Brewery
       AuthCore::UserMailer.welcome_after_signup(self).deliver
     end
 
+    validates :new_email, email: true, allow_nil: true
+
     def display_name
       if !other_names.blank?
         return other_names
@@ -44,6 +46,10 @@ module Brewery
       if role.hidden && !role.users.any?
         role.destroy
       end
+    end
+
+    def unconfirmed_new_email?
+      return !new_email.blank?
     end
   end
 end

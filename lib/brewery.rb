@@ -5,6 +5,7 @@ require "authlogic"
 require "cancan"
 require "will_paginate"
 require "foreigner"
+require "email_validator"
 
 module Brewery
 end
