@@ -67,6 +67,14 @@ module Brewery
       assert_not_nil user.errors.messages[:new_email]
     end
 
+    test "allow blank new_email" do
+      user = brewery_auth_core_users(:user_1)
+      user.new_email = ''
+
+      assert user.valid?
+      assert_nil user.errors.messages[:new_email]
+    end
+
     test "unconfirmed_new_email?" do
       user = brewery_auth_core_users(:user_1)
 

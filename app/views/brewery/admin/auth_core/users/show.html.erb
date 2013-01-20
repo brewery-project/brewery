@@ -9,12 +9,12 @@
 
 	<dl>
 		<dt><%= Brewery::AuthCore::User.human_attribute_name(:other_names) %></dt>
-		<dd><%= @user.other_names %></dd>
+		<dd><%= display_value @user.other_names %></dd>
 	</dl>
 
 	<dl>
 		<dt><%= Brewery::AuthCore::User.human_attribute_name(:family_name) %></dt>
-		<dd><%= @user.family_name %></dd>
+		<dd><%= display_value @user.family_name %></dd>
 	</dl>
 
 	<dl>
@@ -29,7 +29,7 @@
 
 	<dl>
 		<dt><%= Brewery::AuthCore::User.human_attribute_name(:display_name) %></dt>
-		<dd><%= @user.display_name %></dd>
+		<dd><%= display_value @user.display_name %></dd>
 	</dl>
 
 

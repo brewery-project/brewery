@@ -7,3 +7,4 @@ en:
         view: View Details
         edit: Edit
         destroy: Destroy
+      not_provided_html: <em>(Not provided)</em>

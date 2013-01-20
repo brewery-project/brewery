@@ -10,7 +10,7 @@ module Brewery
       AuthCore::UserMailer.welcome_after_signup(self).deliver
     end
 
-    validates :new_email, email: true, allow_nil: true
+    validates :new_email, email: true, allow_blank: true
 
     def display_name
       if !other_names.blank?
