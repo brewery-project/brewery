@@ -11,7 +11,7 @@ initiate_scroll = () ->
 			if loading
 				return
 			if current_wait != null
-				cancelTimeout(current_wait)
+				clearTimeout(current_wait)
 
 			if iscroll.data('infinite-last-page-reached') == 'true'
 				return
@@ -29,7 +29,8 @@ initiate_scroll = () ->
 						complete: () ->
 							loading = false
 							iscroll.find('.loading').fadeOut()
-						error: () ->
+						error: (xhr, y, error) ->
+							alert(error)
 							current_page--
 						dataType: 'script'
 					)

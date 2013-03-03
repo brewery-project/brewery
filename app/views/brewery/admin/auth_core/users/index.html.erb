@@ -3,7 +3,7 @@
 <noscript>
 	<%= will_paginate @users %>
 </noscript>
-<table class="table table-striped">
+<table class="table table-striped" id="infinite-scroll" data-infinite-url="/admin/users" data-infinite-current-page="1">
 	<thead>
 		<tr>
 			<th>EMAIL</th>
@@ -12,10 +12,9 @@
 		</tr>
 	</thead>
 
-	<tbody id="infinite-scroll" data-infinite-url="/admin/users" data-infinite-current-page="1">
-		<%= render 'users', users: @users %>
-
-		<tr class="loading hide">
+	<%= render 'users', users: @users %>
+	<tbody class="loading hide">
+		<tr>
 			<td colspan="3">
 				<%= css_loading_icon %>
 				<%= t 'brewery.general.loading_more_results' %>
