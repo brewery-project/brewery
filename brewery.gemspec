@@ -7,11 +7,11 @@ require "brewery/version"
 Gem::Specification.new do |s|
   s.name        = "brewery"
   s.version     = Brewery::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Brewery."
-  s.description = "TODO: Description of Brewery."
+  s.authors     = ["Nathan Samson"]
+  s.email       = ["brewery@nathansamson.be"]
+  s.homepage    = "https://github.com/brewery-project/brewer"
+  s.summary     = "Brewery Rails Engine."
+  s.description = "Brewery is a Rails Engine to create (Brew) your own website either being a blog, ecommerce site, or anything you can imagine."
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
