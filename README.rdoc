@@ -1,3 +1,48 @@
 = Brewery
 
 This project rocks and uses MIT-LICENSE.
+
+== Contributing
+
+To start contributing you first have to checkout our code from the git
+repository.
+Check out our source code at: https://raw.github.com/brewery-project/brewery
+
+Please do every code change (be it a bug fix, or new feature) in a logical
+branch of your code. After your code is ready to be relased, do a merge request.
+
+Please commit your work in logical commits (not too small, not too big) which
+will help the developers of the project to review your work more easily.
+
+Also make sure that for every bug fix or new feature has excellent code
+coverage and adheres to our code guidelines.
+Code that does not pass the tests, or has insufficient test coverage will
+not be merged.
+
+We wrote a git commit hook which will run the test suite, plus checks
+the code agains the coding guidelines. If one of this test fails
+the commit will be aborted. This ensures that every specific commit adheres
+to our standards, and so the end result will.
+
+Installing this git commit hook can be done by creating a symlink between
+the code and the commit hook file.
+The exact command for this is
+`ln -s check-code-compliance.sh .git/hooks/pre-commit`
+
+== Coding guidelines
+
+This project tries to follow the Ruby Guidelined outlined at
+https://github.com/bbatsov/ruby-style-guide.
+The commit as of writing this document is
+https://github.com/bbatsov/ruby-style-guide/blob/33dd05613a2afbfeb945d4fe229b3f0d4bcc2c7d/README.md.
+
+We will update this document and the direct commit link, if we decide to use
+newer versions of the document.
+
+We don't enforce this policy via a checking tool but rely on peer reviews and
+common sense to follow these rules.
+
+If by any chance you find a file that doesn't follow the rules please create
+an issue ticket. An even better idea is to fix the issue yourself and create
+a merge request, but remmeber to keep this in a seperate branch and to keep
+your commits clean.
