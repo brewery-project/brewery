@@ -1,6 +1,7 @@
 module Brewery
   class AuthCore::User < ActiveRecord::Base
     has_and_belongs_to_many :roles
+    has_and_belongs_to_many :assignable_roles, Proc.new { where hidden: false }, class_name: 'Brewery::AuthCore::Role'
 
     acts_as_authentic do |config|
       config.logged_in_timeout = 1.hours

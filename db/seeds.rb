@@ -11,5 +11,4 @@ def find_or_create_role(identifier, params)
 end
 
 superadmin = find_or_create_role({ name: :superadmin }, { hidden: false })
-admin = find_or_create_role({ name: :admin }, { hidden: false })
-superadmin = find_or_create_role({ name: :admin_user }, { hidden: false, parent: admin })
+admin_user = find_or_create_role({ name: :admin_user }, { hidden: false })

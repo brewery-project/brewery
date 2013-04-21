@@ -25,6 +25,13 @@ en:
         new_email: john_patrick_doe@example.org
       admin_auth_core_user:
         <<: *auth_core_user_placeholders
+  activerecord:
+    attributes:
+      brewery/auth_core/user:
+        other_names: Other Names
+        family_name: Family Name
+        e_mail: E-Mail
+        display_name: Display Name
   helpers:
     submit:
       auth_core_user:

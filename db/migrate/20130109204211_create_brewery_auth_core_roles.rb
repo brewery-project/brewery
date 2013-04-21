@@ -4,7 +4,6 @@ class CreateBreweryAuthCoreRoles < ActiveRecord::Migration
       t.string    :name,               limit: 128,      nil: false
       t.string    :authorizable_type,  limit: 128,      nil: true
       t.integer   :authorizable_id,                     nil: true
-      t.references :parent,                             nil: true
 
       t.boolean   :hidden,            default: true,    nil: false
     end

@@ -14,5 +14,5 @@ role_with_only_user1:
 user_role:
   name: :user_role
 
-admin:
-  name: :admin
+admin_user:
+  name: :admin_user

@@ -13,6 +13,7 @@ module Brewery
       login_as(:user_with_admin_rights)
       get :index, use_route: :brewery
 
+      puts flash.inspect
       assert_response :success
       assert_nil flash[:error]
     end

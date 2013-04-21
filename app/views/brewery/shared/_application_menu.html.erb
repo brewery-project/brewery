@@ -11,10 +11,11 @@
 		</ul>
 
 		<% if current_user %>
-			<div class="pull-right">
-				Hi, <%= link_to current_user.display_name, brewery.auth_core_users_path %>
-				<%= link_to t('brewery.auth_core.session.login'), brewery.auth_core_logout_path %>
-			</div>
+			<ul class="nav pull-right">
+				<li><%= link_to current_user.display_name, brewery.auth_core_users_path %></li>
+				<li class="divider"></li>
+				<li><%= link_to t('brewery.auth_core.session.logout'), brewery.auth_core_logout_path %></li>
+			</ul>
 		<% else %>
 			<ul class="nav pull-right">
 				<li><%= link_to t('brewery.auth_core.sessions.login'), brewery.auth_core_login_path %></li>

@@ -25,7 +25,7 @@ module Brewery
 
     private
     def user_params
-      base_allowed = [:family_name, :other_names, :password, :password_confirmation, :new_email]
+      base_allowed = [:family_name, :other_names, :password, :password_confirmation, :new_email, assignable_role_ids: []]
       params.require(:admin_auth_core_user).permit(base_allowed)
     end
   end

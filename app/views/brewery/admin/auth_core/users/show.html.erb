@@ -6,32 +6,57 @@
 			<%= link_to t("brewery.general.actions.edit"), [:edit, :admin, @user], class: ['btn', 'btn-primary'] %>
 		</span>
 	</h1>
+	<div class="row">
+		<div class="span8">
+			<dl>
+				<dt><%= Brewery::AuthCore::User.human_attribute_name(:other_names) %></dt>
+				<dd><%= display_value @user.other_names %></dd>
+			</dl>
 
-	<dl>
-		<dt><%= Brewery::AuthCore::User.human_attribute_name(:other_names) %></dt>
-		<dd><%= display_value @user.other_names %></dd>
-	</dl>
+			<dl>
+				<dt><%= Brewery::AuthCore::User.human_attribute_name(:family_name) %></dt>
+				<dd><%= display_value @user.family_name %></dd>
+			</dl>
 
-	<dl>
-		<dt><%= Brewery::AuthCore::User.human_attribute_name(:family_name) %></dt>
-		<dd><%= display_value @user.family_name %></dd>
-	</dl>
+			<dl>
+				<dt><%= Brewery::AuthCore::User.human_attribute_name(:email) %></dt>
+				<dd><%= @user.email %></dd>
 
-	<dl>
-		<dt><%= Brewery::AuthCore::User.human_attribute_name(:email) %></dt>
-		<dd><%= @user.email %></dd>
+				<% if @user.unconfirmed_new_email? %>
+					<dt><%= Brewery::AuthCore::User.human_attribute_name(:new_email) %></dt>
+					<dd><%= @user.new_email %></dd>
+				<% end %>
+			</dl>
 
-		<% if @user.unconfirmed_new_email? %>
-			<dt><%= Brewery::AuthCore::User.human_attribute_name(:new_email) %></dt>
-			<dd><%= @user.new_email %></dd>
-		<% end %>
-	</dl>
+			<dl>
+				<dt><%= Brewery::AuthCore::User.human_attribute_name(:display_name) %></dt>
+				<dd><%= display_value @user.display_name %></dd>
+			</dl>
 
-	<dl>
-		<dt><%= Brewery::AuthCore::User.human_attribute_name(:display_name) %></dt>
-		<dd><%= display_value @user.display_name %></dd>
-	</dl>
+			<dl>
+				<dt><%= Brewery::AuthCore::User.human_attribute_name(:created_at) %></dt>
+				<dd><%= l @user.created_at %></dd>
+			</dl>
 
+			<dl>
+				<dt><%= Brewery::AuthCore::User.human_attribute_name(:updated_at) %></dt>
+				<dd><%= l @user.updated_at %></dd>
+			</dl>
+		</div>
+
+		<div class="span4">
+			<h2><%= t(".grants") %></h2>
+			<%= simple_form_for [:admin, @user], as: :admin_auth_core_user  do |grants_form| %>
+				<%= grants_form.association :assignable_roles,  as: :check_boxes,
+				                            collection: Brewery::AuthCore::Role.assignable, label: false,
+				                            label_method: :i18n_name %>
+
+				<div class="form-actions">
+					<%= grants_form.submit class: ['btn', 'btn-primary'] %>
+				</div>
+			<% end %>
+		</div>
+	</div>
 
 	<h2><%= t("brewery.general.actions_title") %></h2>
 	<p>

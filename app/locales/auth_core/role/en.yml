@@ -1,0 +1,7 @@
+en:
+  brewery:
+    auth_core:
+      role:
+        names:
+          superadmin: Super Admin
+          admin_user: User Admin
