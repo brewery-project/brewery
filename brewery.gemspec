@@ -16,10 +16,10 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.0.0.beta"
-  s.add_dependency "sass-rails", "~> 4.0.0.beta"
+  s.add_dependency "rails", "~> 4.0.0.rc1"
+  s.add_dependency "sass-rails", "~> 4.0.0.rc1"
   s.add_dependency "jquery-rails", "~> 2.2.1"
-  s.add_dependency "coffee-rails", "~> 4.0.0.beta"
+  s.add_dependency "coffee-rails", "~> 4.0.0.rc1"
   s.add_dependency "turbolinks", "~> 1.0.0"
 
   s.add_dependency 'authlogic', '~> 3.3.0'
@@ -28,8 +28,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate', '~> 3.0.4'
   s.add_dependency 'foreigner'
   s.add_dependency 'email_validator'
-  s.add_dependency 'simple_form', '~> 3.0.0.beta'
+  s.add_dependency 'simple_form', '~> 3.0.0.rc'
 
+  s.add_development_dependency "rdoc"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rails_best_practices"
 end
