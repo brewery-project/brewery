@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sass-rails", "~> 4.0.0.rc1"
   s.add_dependency "jquery-rails", "~> 2.2.1"
   s.add_dependency "coffee-rails", "~> 4.0.0.rc1"
-  s.add_dependency "turbolinks", "~> 1.0.0"
+  s.add_dependency "turbolinks", "~> 1.3.0"
 
   s.add_dependency 'authlogic', '~> 3.3.0'
   s.add_dependency 'bootstrap-sass', '~> 2.3.1.0'
