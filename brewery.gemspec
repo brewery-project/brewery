@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency "turbolinks", "~> 1.3.0"
 
   s.add_dependency 'authlogic', '~> 3.3.0'
-  s.add_dependency 'bootstrap-sass', '~> 2.3.1.0'
+  s.add_dependency 'bootstrap-sass', '~> 3.0.2.0'
   s.add_dependency 'cancan', '~> 1.6.8'
   s.add_dependency 'will_paginate', '~> 3.0.4'
   s.add_dependency 'foreigner'
