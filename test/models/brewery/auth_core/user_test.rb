@@ -3,8 +3,7 @@ require 'test_helper'
 module Brewery
   class AuthCore::UserTest < ActiveSupport::TestCase
     test "validates whenever it is valid" do
-      user = valid_base_user_with_all_data
-      user.save
+      user = FactoryGirl.create(:user)
 
       user.persisted?.must_be_same_as true
       user.active?.must_be_same_as false
@@ -15,10 +14,11 @@ module Brewery
     end
 
     test "does not allow creation when email is not unique" do
-      user = valid_base_user_with_all_data
-      user.email = 'already_used@example.org'
+      user1 = FactoryGirl.create(:user)
 
+      user = FactoryGirl.build(:user, email: user1.email)
       user.save
+
       user.persisted?.must_be_same_as false
 
       user.errors.messages[:email].wont_be_nil
@@ -26,18 +26,16 @@ module Brewery
     end
 
     test "does not allow creation when passwords do not match" do
-      user = valid_base_user_with_all_data
-      user.password_confirmation = 'not_my_password'
-
+      user = FactoryGirl.build(:user, password: 'azerty', password_confirmation: 'qwerty')
       user.save
+
       user.persisted?.must_be_same_as false
 
       user.errors.messages[:password_confirmation].wont_be_nil
     end
 
     test "does not allow creation when email doesnt look like an email" do
-      user = valid_base_user_with_all_data
-      user.email = 'not_used'
+      user = FactoryGirl.build(:user, email: 'ceci ne pas une email')
 
       user.save
       user.persisted?.must_be_same_as false
@@ -46,7 +44,7 @@ module Brewery
     end
 
     test "does allow empty names" do
-      user = valid_base_user_with_all_data
+      user = FactoryGirl.build(:user)
       user.family_name = nil
       user.other_names = nil
       user.save
@@ -60,7 +58,7 @@ module Brewery
     end
 
     test "does not allow invalid new_email" do
-      user = brewery_auth_core_users(:user_1)
+      user = FactoryGirl.create(:user)
       user.new_email = 'not a valid email'
 
       assert_not user.valid?
@@ -68,7 +66,7 @@ module Brewery
     end
 
     test "allow blank new_email" do
-      user = brewery_auth_core_users(:user_1)
+      user = FactoryGirl.create(:user)
       user.new_email = ''
 
       assert user.valid?
@@ -76,7 +74,7 @@ module Brewery
     end
 
     test "unconfirmed_new_email?" do
-      user = brewery_auth_core_users(:user_1)
+      user = FactoryGirl.create(:user)
 
       assert_not user.unconfirmed_new_email?
 
@@ -85,62 +83,61 @@ module Brewery
     end
 
     test "display_name returns email if name not set" do
-      user = brewery_auth_core_users(:user_1)
+      user = FactoryGirl.build(:user)
 
       assert_equal user.email, user.display_name
     end
 
     test "display_name returns other_names if names all set" do
-      user = brewery_auth_core_users(:user_2_with_full_names)
+      user = FactoryGirl.build(:user_with_names)
 
       assert_equal user.other_names, user.display_name
     end
 
     test "display_name returns family_name if only set" do
-      user = brewery_auth_core_users(:user_3_with_family_name)
+      user = FactoryGirl.build(:user_with_names, other_names: nil)
 
       assert_equal user.family_name, user.display_name
     end
 
     test "test has_role? returns correct value" do
-      user = AuthCore::User.first
+      user = FactoryGirl.create(:user)
       assert_not user.has_role?(:imaginery_role)
 
-      user = brewery_auth_core_users(:user_1)
-      assert user.has_role?(:superadmin)
+      super_admin = FactoryGirl.create(:user_superadmin)
+      assert super_admin.has_role?(:superadmin)
 
-      user2 = brewery_auth_core_users(:user_2_with_full_names)
-      assert_not user2.has_role?(:superadmin)
+      assert_not user.has_role?(:superadmin)
     end
 
     test "test has_role! assigns new role" do
-      user = brewery_auth_core_users(:user_1)
-      assert_not user.has_role?(:new_role)
+      user = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
 
+      assert_not user.has_role?(:new_role)
       user.has_role! :new_role
       assert user.has_role?(:new_role)
 
-      user = brewery_auth_core_users(:user_1)
+      user = AuthCore::User.find user.id
       assert user.has_role?(:new_role)
 
-      user2 = brewery_auth_core_users(:user_2_with_full_names)
       assert_not user2.has_role?(:new_role)
     end
 
     test "test has_role! assigns existing role" do
-      user2 = brewery_auth_core_users(:user_2_with_full_names)
-      assert_not user2.has_role?(:superadmin)
+      user = FactoryGirl.create(:user)
+      assert_not user.has_role?(:superadmin)
 
-      user2.has_role! :superadmin
-      assert user2.has_role?(:superadmin)
+      user.has_role! :superadmin
+      assert user.has_role?(:superadmin)
 
-      user2 = brewery_auth_core_users(:user_2_with_full_names)
-      assert user2.has_role?(:superadmin)
+      user = AuthCore::User.find user.id
+      assert user.has_role?(:superadmin)
     end
 
     test "test has_no_role! revokes role" do
-      user1 = brewery_auth_core_users(:user_1)
-      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      user1 = FactoryGirl.create(:user)
+      user2 = FactoryGirl.create(:user)
       assert user1.has_role?(:user_role)
       assert user2.has_role?(:user_role)
 
@@ -150,8 +147,9 @@ module Brewery
     end
 
     test "test has_no_role! cleans up after itself" do
-      user1 = brewery_auth_core_users(:user_1)
-      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      user1 = FactoryGirl.create(:user)
+      user1.has_role!(:role_with_only_user1)
+      user2 = FactoryGirl.create(:user)
       assert user1.has_role?(:role_with_only_user1)
       assert_not user2.has_role?(:role_with_only_user1)
 
@@ -163,8 +161,9 @@ module Brewery
     end
 
     test "test has_no_role! cleans up after itself unless not hidden role" do
-      user1 = brewery_auth_core_users(:user_1)
-      user2 = brewery_auth_core_users(:user_2_with_full_names)
+      FactoryGirl.create(:superadmin_role)
+      user1 = FactoryGirl.create(:user_superadmin)
+      user2 = FactoryGirl.create(:user)
       assert user1.has_role?(:superadmin)
       assert_not user2.has_role?(:superadmin)
 
@@ -173,18 +172,6 @@ module Brewery
       assert_not user2.has_role?(:superadmin)
 
       assert AuthCore::Role.where(name: :superadmin, authorizable_id: nil, authorizable_type: nil).exists?
-    end
-
-    private
-    def valid_base_user_with_all_data
-      valid_user = AuthCore::User.new
-      valid_user.email = "not_already_used@example.org"
-      valid_user.password = 'my_password'
-      valid_user.password_confirmation = 'my_password'
-      valid_user.family_name = 'User'
-      valid_user.other_names = 'Newly Created'
-
-      return valid_user
     end
   end
 end

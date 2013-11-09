@@ -10,16 +10,17 @@ module Brewery
     end
 
     test "index is permitted as admin user" do
-      login_as(:user_with_admin_rights)
+      user = FactoryGirl.create(:user_admin)
+      login_as(user)
       get :index, use_route: :brewery
 
-      puts flash.inspect
       assert_response :success
       assert_nil flash[:error]
     end
 
     test "index is denied as non admin user" do
-      login_as(:user_2_with_full_names)
+      user = FactoryGirl.create(:user)
+      login_as(user)
       get :index, use_route: :brewery
 
       assert_response :redirect

@@ -16,25 +16,23 @@ module Brewery
     end
 
     test "post create creates user and redirects" do
-      AuthCore::User.where(email: 'not_yet_used@example.org').first.must_be_nil
-
-      post :create, { auth_core_user: { email: 'not_yet_used@example.org', password: 'password', password_confirmation: 'password' }, use_route: :brewery }
+      attributes = FactoryGirl.attributes_for(:user)
+      post :create, { auth_core_user: attributes, use_route: :brewery }
 
       #assert_redirected_to main_app.root_url
       assert_response :redirect
       flash[:success].wont_be_nil
       flash[:error].must_be_nil
 
-      user = AuthCore::User.where(email: 'not_yet_used@example.org').first
+      user = AuthCore::User.where(email: attributes[:email]).first
       user.wont_be_nil
       assert_not user.active?
       user.perishable_token.wont_be_nil
     end
 
     test "post create fails and shows form" do
-      AuthCore::User.where(email: 'not_yet_used@example.org').first.must_be_nil
-
-      post :create, { auth_core_user: { email: 'not_yet_used@example.org', password: 'password', password_confirmation: 'not_the_same_password' }, use_route: :brewery }
+      attributes = FactoryGirl.attributes_for(:user, password_confirmation: 'not the same password')
+      post :create, { auth_core_user: attributes, use_route: :brewery }
 
       assert_response :success
       assert_template 'new'
@@ -44,38 +42,33 @@ module Brewery
       flash[:success].must_be_nil
       flash[:error].must_be_nil
 
-      user = AuthCore::User.where(email: 'not_yet_used@example.org').first
+      user = AuthCore::User.where(email: attributes[:email]).first
       user.must_be_nil
 
       user = assigns[:user]
       user.wont_be_nil
-
-      assert_equal user.email, 'not_yet_used@example.org'
+      assert_equal attributes[:email], user.email
     end
 
     test "post create ignores all internal fields" do
-      base_user = { email: 'not_yet_used@example.org', password: 'password', password_confirmation: 'password' }
-
       @@secret_keys.each do |key|
-        user_params = base_user.clone
-        email = key.to_s + '_' + user_params[:email]
-        user_params[:email] = email
-        user_params[key] = 'RaRaRaRandom4'
+        attributes = FactoryGirl.attributes_for(:user)
+        attributes[key] = 'RaRaRaRandom4'
 
-        assert_equal 0, AuthCore::User.where(email: email).count
+        assert_equal 0, AuthCore::User.where(email: attributes[:email]).count
 
         #assert_raise ActionController::UnpermittedParameters do
-          post :create, { auth_core_user: user_params, use_route: :brewery }
+          post :create, { auth_core_user: attributes, use_route: :brewery }
         #end
 
-        assert_equal 1, AuthCore::User.where(email: email).count
-        user = AuthCore::User.where(email: email).first
-        assert_not_equal user_params[key], user.send(key)
+        assert_equal 1, AuthCore::User.where(email: attributes[:email]).count
+        user = AuthCore::User.where(email: attributes[:email]).first
+        assert_not_equal attributes[key], user.send(key)
       end
     end
 
     test "get confirm activates user" do
-      user = brewery_auth_core_users(:user_1)
+      user = FactoryGirl.create(:user)
 
       assert_difference 'AuthCore::User.where(active: true).count', 1 do
         get :confirm, { key: user.perishable_token, use_route: :brewery }
@@ -90,6 +83,8 @@ module Brewery
     end
 
     test "get confirm with invalid key does not activate anyone" do
+      user = FactoryGirl.create(:user)
+
       assert_no_difference 'AuthCore::User.where(active: true).count' do
         get :confirm, { key: 'z', use_route: :brewery }
       end
@@ -98,7 +93,7 @@ module Brewery
       flash[:success].must_be_nil
       flash[:error].wont_be_nil
 
-      active_user = AuthCore::User.where(email: brewery_auth_core_users(:user_1).email).first
+      active_user = AuthCore::User.where(email: user.email).first
       assert_not active_user.active?
     end
   end

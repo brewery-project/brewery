@@ -13,12 +13,15 @@ module Brewery
 
     test "do successful login" do
       assert_nil AuthCore::UserSession.find
-      post :create, { brewery_auth_core_user_session: { email: 'already_used@example.org', password: 'user_1' }, use_route: :brewery }
+      user = FactoryGirl.create(:user, password: 'iknowit')
+      assert_nil AuthCore::UserSession.find
+
+      post :create, { brewery_auth_core_user_session: { email: user.email, password: user.password }, use_route: :brewery }
 
       assert_response :redirect
       session = AuthCore::UserSession.find
       assert_not_nil session
-      assert_equal brewery_auth_core_users(:user_1).email, session.user.email
+      assert_equal user.email, session.user.email
 
       assert_not_nil flash[:success]
       assert_nil flash[:error]
@@ -26,7 +29,9 @@ module Brewery
 
     test "do failed login" do
       assert_nil AuthCore::UserSession.find
-      post :create, { brewery_auth_core_user_session: { email: 'already_used@example.org', password: 'failed_user_1' }, use_route: :brewery }
+      user = FactoryGirl.create(:user, password: 'iknowit')
+      assert_nil AuthCore::UserSession.find
+      post :create, { brewery_auth_core_user_session: { email: user.email, password: 'ormaybeiamwrong' }, use_route: :brewery }
 
       assert_response :success
       assert_template :new
@@ -40,7 +45,8 @@ module Brewery
     end
 
     test "do logout" do
-      login_as(:user_1)
+      user = FactoryGirl.create(:user)
+      login_as(user)
 
       assert_not_nil AuthCore::UserSession.find
       get :destroy, use_route: :brewery

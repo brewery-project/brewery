@@ -12,7 +12,8 @@ module Brewery
     end
 
     test "index is permitted as superadmin user" do
-      login_as(:user_1)
+      user = FactoryGirl.create(:user_superadmin)
+      login_as(user)
       get :index, use_route: :brewery
 
       assert_response :success
@@ -20,7 +21,8 @@ module Brewery
     end
 
     test "index is permitted as user with user admin rights" do
-      login_as(:user_with_admin_rights)
+      user_admin = FactoryGirl.create(:user_admin)
+      login_as(user_admin)
       get :index, use_route: :brewery
 
       assert_response :success
@@ -29,7 +31,8 @@ module Brewery
     end
 
     test "index is denied as non admin user" do
-      login_as(:user_2_with_full_names)
+      user = FactoryGirl.create(:user)
+      login_as(user)
       get :index, use_route: :brewery
 
       assert_response :redirect
@@ -38,15 +41,17 @@ module Brewery
 
     ## Show
     test "show by authorized users" do
-      login_as(:user_with_admin_rights)
-      get :show, id: brewery_auth_core_users(:user_1).id, use_route: :brewery
+      user_admin = FactoryGirl.create(:user_admin)
+      login_as(user_admin)
+      get :show, id: user_admin.id, use_route: :brewery
 
       assert_response :success
       assert_not_nil assigns[:user]
     end
 
     test "show with invalid id by authorized user" do
-      login_as(:user_with_admin_rights)
+      user_admin = FactoryGirl.create(:user_admin)
+      login_as(user_admin)
       get :show, id: 0, use_route: :brewery
 
       assert_response 404
@@ -56,8 +61,9 @@ module Brewery
     end
 
     test "show as unauthorized user redirects" do
-      login_as(:user_2_with_full_names)
-      get :show, id: brewery_auth_core_users(:user_1).id, use_route: :brewery
+      user = FactoryGirl.create(:user)
+      login_as(user)
+      get :show, id: user.id, use_route: :brewery
 
       assert_response :redirect
       assert_not_nil flash[:error]
@@ -66,15 +72,18 @@ module Brewery
     ## Edit
 
     test "edit by authorized users" do
-      login_as(:user_with_admin_rights)
-      get :edit, id: brewery_auth_core_users(:user_1).id, use_route: :brewery
+      user = FactoryGirl.create(:user_admin)
+      login_as(user)
+      assert user.has_role?(:admin_user)
+      get :edit, id: user.id, use_route: :brewery
 
       assert_response :success
       assert_not_nil assigns[:user]
     end
 
     test "edit with invalid id by authorized user" do
-      login_as(:user_with_admin_rights)
+      user = FactoryGirl.create(:user_admin)
+      login_as(user)
       get :edit, id: 0, use_route: :brewery
 
       assert_response 404
@@ -84,8 +93,9 @@ module Brewery
     end
 
     test "edit as unauthorized user redirects" do
-      login_as(:user_2_with_full_names)
-      get :edit, id: brewery_auth_core_users(:user_1).id, use_route: :brewery
+      user = FactoryGirl.create(:user)
+      login_as(user)
+      get :edit, id: user.id, use_route: :brewery
 
       assert_response :redirect
       assert_not_nil flash[:error]
@@ -93,8 +103,9 @@ module Brewery
 
     ## Update
     test "update by authorized users" do
-      login_as(:user_with_admin_rights)
-      get :update, id: brewery_auth_core_users(:user_1).id,
+      user = FactoryGirl.create(:user_admin)
+      login_as(user)
+      get :update, id: user.id,
                   admin_auth_core_user: { other_names: 'John Doe' },
                   use_route: :brewery
 
@@ -104,8 +115,9 @@ module Brewery
     end
 
     test "failed update by authorized users" do
-      login_as(:user_with_admin_rights)
-      get :update, id: brewery_auth_core_users(:user_1).id,
+      user = FactoryGirl.create(:user_admin)
+      login_as(user)
+      get :update, id: user.id,
                   admin_auth_core_user: { new_email: 'not a valid email' },
                   use_route: :brewery
 
@@ -120,7 +132,8 @@ module Brewery
     end
 
     test "update with invalid id by authorized user" do
-      login_as(:user_with_admin_rights)
+      user = FactoryGirl.create(:user_admin)
+      login_as(user)
       get :update, id: 0,
                   admin_auth_core_user: { other_names: 'John Doe' },
                   use_route: :brewery
@@ -132,19 +145,14 @@ module Brewery
     end
 
     test "update as unauthorized user redirects" do
-      login_as(:user_2_with_full_names)
-      get :update, id: brewery_auth_core_users(:user_1).id,
+      user = FactoryGirl.create(:user)
+      login_as(user)
+      get :update, id: user.id,
                   admin_auth_core_user: { other_names: 'John Doe' },
                   use_route: :brewery
 
       assert_response :redirect
       assert_not_nil flash[:error]
-    end
-
-    private
-    def give(user, role)
-      user = brewery_auth_core_users(user)
-      user.has_role! :admin_user
     end
   end
 end
