@@ -14,7 +14,16 @@ module Brewery
       @user = AuthCore::User.new(user_params(true))
 
       if @user.save
-        redirect_to main_app.root_path, success: I18n.t('create.success', scope: i18n_scope)
+        @user.has_role!(Brewery::AuthCore.default_new_user_role)
+        next_url = nil
+        class_names = Brewery::AuthCore.signup_flow_classes.dup
+        while next_url.nil?
+          class_name = class_names.pop
+          klass = class_name.constantize
+          next_url = klass.next_url(@user, self)
+        end
+
+        redirect_to next_url, success: I18n.t('create.success', scope: i18n_scope)
       else
         flash.now[:error] = I18n.t('create.failure', scope: i18n_scope)
         render :new
@@ -30,6 +39,14 @@ module Brewery
         @user.active = true
         @user.save! # Failure on this should not happen.
         redirect_to main_app.root_path, success: I18n.t('confirm.success', scope: i18n_scope)
+      end
+    end
+
+    def self.next_url(user, controller_for_url_helpers)
+      if user.persisted?
+        return controller_for_url_helpers.main_app.root_url
+      else
+        return nil
       end
     end
 

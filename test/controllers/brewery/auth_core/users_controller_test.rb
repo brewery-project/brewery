@@ -96,5 +96,38 @@ module Brewery
       active_user = AuthCore::User.where(email: user.email).first
       assert_not active_user.active?
     end
+
+    test "redirect to custom step" do
+      current_default_was = Brewery::AuthCore.default_new_user_role
+      Brewery::AuthCore.default_new_user_role = :custom_role
+      Brewery::AuthCore.signup_flow_classes.push('Brewery::AuthCore::UsersControllerTest::MockCustomStep')
+      user_attributes = FactoryGirl.attributes_for(:user)
+
+      post :create, { auth_core_user: user_attributes, use_route: :brewery }
+
+      assert_redirected_to(custom_signup_path)
+      assert_response :redirect
+      flash[:success].wont_be_nil
+      flash[:error].must_be_nil
+
+      user = AuthCore::User.where(email: user_attributes[:email]).first
+      user.has_role?(:custom_role)
+      user.wont_be_nil
+      assert_not user.active?
+      user.perishable_token.wont_be_nil
+
+      Brewery::AuthCore.default_new_user_role = current_default_was
+      Brewery::AuthCore.signup_flow_classes.pop
+    end
+
+    class MockCustomStep
+      def self.next_url(user, controller_for_url_helpers)
+        if user.has_role?(:custom_role)
+          return controller_for_url_helpers.main_app.custom_signup_path
+        else
+          return nil
+        end
+      end
+    end
   end
 end

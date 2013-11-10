@@ -22,6 +22,8 @@ ActiveSupport::TestCase.fixture_path = File.expand_path("../fixtures", __FILE__)
 
 class ActionController::TestCase < ActiveSupport::TestCase
   include Authlogic::TestCase
+  include Brewery::Engine.routes.url_helpers
+  include Rails.application.routes.url_helpers
 
   setup :activate_authlogic
 
