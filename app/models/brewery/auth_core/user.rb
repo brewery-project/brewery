@@ -8,7 +8,9 @@ module Brewery
     end
 
     after_create do
-      AuthCore::UserMailer.welcome_after_signup(self).deliver
+      if Brewery::AuthCore.send_welcome_mail_after_signup
+        AuthCore::UserMailer.welcome_after_signup(self).deliver
+      end
     end
 
     validates :new_email, email: true, allow_blank: true

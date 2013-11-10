@@ -173,5 +173,28 @@ module Brewery
 
       assert AuthCore::Role.where(name: :superadmin, authorizable_id: nil, authorizable_type: nil).exists?
     end
+
+    test "do send welcome email by default" do
+      user = Brewery::AuthCore::User.new(FactoryGirl.attributes_for(:user))
+      assert_difference 'ActionMailer::Base.deliveries.count', 1 do
+        user.save!
+      end
+
+      mail = ActionMailer::Base.deliveries.last
+      assert_equal user.email, mail.to.first
+      assert_equal 1, mail.to.count
+    end
+
+    test "do not send welcome email if disabled" do
+      config_value_was = Brewery::AuthCore.send_welcome_mail_after_signup
+      Brewery::AuthCore.send_welcome_mail_after_signup = false
+
+      user = Brewery::AuthCore::User.new(FactoryGirl.attributes_for(:user))
+      assert_difference 'ActionMailer::Base.deliveries.count', 0 do
+        user.save!
+      end
+
+      Brewery::AuthCore.send_welcome_mail_after_signup = config_value_was
+    end
   end
 end
