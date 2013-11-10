@@ -1,10 +1,11 @@
 <h1><%= t 'brewery.auth_core.sessions.login' %></h1>
 
-<%= simple_form_for @user_session, url: auth_core_login_path, html: { class: 'form-vertical' } do |sigin_form| %>
-	<%= sigin_form.input :email %>
-	<%= sigin_form.input :password %>
+<%= simple_form_for @user_session, url: auth_core_login_path, html: { class: 'form-horizontal' } do |sigin_form| %>
+    <%= sigin_form.input :email %>
+    <%= sigin_form.input :password %>
 
-	<div class="form-actions">
-		<%= sigin_form.submit class: [ 'btn', 'btn-primary' ] %>
-	</div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <%= sigin_form.submit class: [ 'btn', 'btn-primary' ] %>
+        </div>
 <% end %>
