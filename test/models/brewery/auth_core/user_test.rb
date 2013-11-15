@@ -196,5 +196,22 @@ module Brewery
 
       Brewery::AuthCore.send_welcome_mail_after_signup = config_value_was
     end
+
+    class Ability
+      def initialize(user, master)
+        return if user.nil?
+        master.can :love, Brewery::AuthCore::User
+      end
+    end
+
+    test "ability allows extra classes" do
+      AuthCore::Ability.add_extra_ability_class_name('Brewery::AuthCore::UserTest::Ability')
+
+      user = FactoryGirl.build(:user)
+      ability = Brewery::AuthCore::Ability.new(user)
+
+      assert ability.can?(:love, Brewery::AuthCore::User)
+      assert_not ability.can?(:love2, Brewery::AuthCore::User)
+    end
   end
 end

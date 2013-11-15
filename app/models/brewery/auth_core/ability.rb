@@ -1,8 +1,17 @@
 module Brewery
   class AuthCore::Ability
+    @@extra_classes = []
     include CanCan::Ability
 
+    def self.add_extra_ability_class_name(class_name)
+      @@extra_classes << class_name.constantize
+    end
+
     def initialize(user)
+      @@extra_classes.each do |extra_class|
+        extra_class.new(user, self)
+      end
+
       anonymous and return if user.nil?
 
       if user.has_role? :superadmin
