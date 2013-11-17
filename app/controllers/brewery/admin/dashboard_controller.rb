@@ -1,5 +1,6 @@
 module Brewery
-  class Admin::DashboardController < Admin::BaseController
+  class Admin::DashboardController < ApplicationController
+    include Admin::BaseController
 
     def index
       render :index

@@ -1,5 +1,8 @@
+require_dependency "brewery/application_controller"
+
 module Brewery
-  class Admin::AuthCore::UsersController < Admin::BaseController
+  class Admin::AuthCore::UsersController < ApplicationController
+    include Admin::BaseController
     load_and_protect
 
     def index
