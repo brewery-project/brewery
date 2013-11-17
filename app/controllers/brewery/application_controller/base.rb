@@ -3,6 +3,7 @@ module Brewery
         extend ActiveSupport::Concern
 
         included do
+            helper Brewery::ApplicationHelper
             add_flash_types :error, :success, :info
             rescue_from CanCan::AccessDenied, with: :on_access_denied
 
