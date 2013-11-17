@@ -1,5 +1,5 @@
 module Brewery
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
     add_flash_types :error, :success, :info
     rescue_from CanCan::AccessDenied, with: :on_access_denied
 
