@@ -3,11 +3,14 @@ module Brewery
     @@extra_classes = []
     include CanCan::Ability
 
+    attr_accessor :object
+
     def self.add_extra_ability_class_name(class_name)
       @@extra_classes << class_name.constantize
     end
 
     def initialize(user)
+      self.object = user
       @@extra_classes.each do |extra_class|
         extra_class.new(user, self)
       end

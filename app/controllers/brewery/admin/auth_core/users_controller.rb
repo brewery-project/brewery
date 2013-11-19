@@ -5,6 +5,24 @@ module Brewery
     include Admin::BaseController
     load_and_protect
 
+    class AdminModule
+      def self.title
+        return I18n.t('brewery.admin.auth_core.users.title')
+      end
+
+      def self.link(context)
+          context.brewery.admin_auth_core_users_path
+      end
+
+      def self.can?(ability)
+        return ability.can?(:manage, Brewery::AuthCore::User)
+      end
+
+      def self.glyphicon
+        return 'user'
+      end
+    end
+
     def index
       @users = @users.paginate(page: params['page'])
 
