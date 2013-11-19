@@ -34,6 +34,6 @@ module Brewery
         @@modules[priority] << dashboard_module
     end
 
-    #register_module(GoToSiteAdminModule, 10)
+    register_module(GoToSiteAdminModule, 10)
   end
 end
