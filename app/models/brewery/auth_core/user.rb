@@ -5,6 +5,11 @@ module Brewery
 
     acts_as_authentic do |config|
       config.logged_in_timeout = 1.hours
+      config.disable_perishable_token_maintenance = true
+    end
+
+    before_create do
+      reset_perishable_token
     end
 
     after_create do

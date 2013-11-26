@@ -69,6 +69,7 @@ module Brewery
 
     test "get confirm activates user" do
       user = FactoryGirl.create(:user)
+      pt = user.perishable_token
 
       assert_difference 'AuthCore::User.where(active: true).count', 1 do
         get :confirm, { key: user.perishable_token, use_route: :brewery }
@@ -80,6 +81,7 @@ module Brewery
 
       active_user = AuthCore::User.where(email: user.email).first
       assert active_user.active?
+      assert_not_equal pt, active_user.perishable_token
     end
 
     test "get confirm with invalid key does not activate anyone" do

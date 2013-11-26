@@ -37,6 +37,7 @@ module Brewery
         redirect_to main_app.root_path, error: I18n.t('confirm.failure', scope: i18n_scope)
       else
         @user.active = true
+        @user.reset_perishable_token
         @user.save! # Failure on this should not happen.
         redirect_to main_app.root_path, success: I18n.t('confirm.success', scope: i18n_scope)
       end

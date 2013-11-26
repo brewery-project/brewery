@@ -197,6 +197,16 @@ module Brewery
       Brewery::AuthCore.send_welcome_mail_after_signup = config_value_was
     end
 
+    test "perishable token does not change every time user is saved" do
+      user = FactoryGirl.create(:user)
+      pt1 = user.perishable_token
+
+      user.other_names = 'Test'
+      user.save!
+
+      assert_equal pt1, user.perishable_token
+    end
+
     class Ability
       def initialize(user, master)
         return if user.nil?
