@@ -31,14 +31,14 @@ module Brewery
     end
 
     def has_role?(name)
-      return roles.where(name: name, authorizable_type: nil, authorizable_id: nil).exists?
+      return roles.where(name: name.to_s, authorizable_type: nil, authorizable_id: nil).exists?
     end
 
     def has_role!(name)
-      if AuthCore::Role.where(name: name, authorizable_type: nil, authorizable_id: nil).exists?
-        role = AuthCore::Role.where(name: name, authorizable_type: nil, authorizable_id: nil).first
+      if AuthCore::Role.where(name: name.to_s, authorizable_type: nil, authorizable_id: nil).exists?
+        role = AuthCore::Role.where(name: name.to_s, authorizable_type: nil, authorizable_id: nil).first
       else
-        role = AuthCore::Role.new(name: name)
+        role = AuthCore::Role.new(name: name.to_s)
       end
 
       roles << role
@@ -46,7 +46,7 @@ module Brewery
     end
 
     def has_no_role!(name)
-      role = AuthCore::Role.where(name: name, authorizable_type: nil, authorizable_id: nil).first
+      role = AuthCore::Role.where(name: name.to_s, authorizable_type: nil, authorizable_id: nil).first
 
       return false if role.nil?
 
