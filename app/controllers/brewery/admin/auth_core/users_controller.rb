@@ -22,26 +22,44 @@ module Brewery
         return 'user'
       end
     end
-    before_filter :index_crumb, except: :index
-    before_filter :show_crumb, except: [:index, :show]
+
+    class CrumbModule
+      def initialize(object, context)
+        @object = object
+        @context = context
+      end
+
+      def title
+        I18n.t('brewery.admin.auth_core.users.title')
+      end
+
+      def label
+        @object.display_name
+      end
+
+      def index_path
+        @context.admin_auth_core_users_path
+      end
+
+      def object_path
+        @context.admin_auth_core_user_path(@object)
+      end
+    end
+    register_admin_crumbs
 
     def index
       @users = @users.paginate(page: params['page'])
-      add_crumb(I18n.t('brewery.admin.auth_core.users.title'), nil)
 
       render :index
     end
 
     def show
-      add_crumb(@user.display_name)
     end
 
     def edit
-      add_crumb(I18n.t('brewery.general.actions.edit'))
     end
 
     def update
-      add_crumb(I18n.t('brewery.general.actions.edit'))
       if @user.update_attributes(user_params)
         redirect_to [:admin, @user], success: I18n.t('brewery.admin.auth_core.users.update.success')
       else
@@ -51,13 +69,8 @@ module Brewery
     end
 
     private
-
-    def index_crumb
-      add_crumb(I18n.t('brewery.admin.auth_core.users.title'), admin_auth_core_users_path)
-    end
-
-    def show_crumb
-      add_crumb(@user.display_name, admin_auth_core_user_path(@user))
+    def crumb_module
+      @crumb_module ||= CrumbModule.new(@user, self)
     end
 
     def user_params
