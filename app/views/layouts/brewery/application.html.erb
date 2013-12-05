@@ -22,7 +22,11 @@
 	<% end %>
 
 	<main class="container">
-		<%= yield %>
+        <% if content_for(:content) %>
+            <%= yield(:content) %>
+        <% else %>
+		  <%= yield %>
+        <% end %>
 	</main>
 
 </body>

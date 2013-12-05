@@ -5,6 +5,9 @@ module Brewery
       before_action do
         authorize! :access, :admin
       end
+      layout 'brewery/admin'
+
+      before_filter :add_base_crumb
 
       rescue_from ActiveRecord::RecordNotFound do |ex|
         flash.now[:error] = ex.message
@@ -23,6 +26,10 @@ module Brewery
       end
 
       private
+      def add_base_crumb
+        add_crumb I18n.t('brewery.admin.title'), brewery.admin_path
+      end
+
       def self.resource_class
         self.name.sub(/Controller$/, '').                 # Remove Controller
                   underscore.

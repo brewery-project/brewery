@@ -1,6 +1,9 @@
 module Brewery
   class Admin::DashboardController < ApplicationController
-    include Admin::BaseController
+    before_action do
+      authorize! :access, :admin
+    end
+    layout 'brewery/admin'
 
     @@modules = []
     11.times do |i|
