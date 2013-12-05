@@ -28,10 +28,7 @@ module Brewery
       def self.register_admin_crumbs
         self.before_filter :index_crumb, except: [:index]
         self.before_filter :on_index_crumb, only: [:index]
-
-        self.before_filter :show_crumb, except: [:show, :index]
         self.before_filter :on_show_crumb, only: [:show]
-
         self.before_filter :on_edit_crumb, only: [:edit, :update]
         self.before_filter :on_new_crumb, only: [:new, :create]
       end
@@ -44,15 +41,12 @@ module Brewery
         add_crumb(crumb_module.title)
       end
 
-      def show_crumb
-        add_crumb(crumb_module.label, crumb_module.object_path)
-      end
-
       def on_show_crumb
         add_crumb(crumb_module.label)
       end
 
       def on_edit_crumb
+        add_crumb(crumb_module.label, crumb_module.object_path)
         add_crumb(I18n.t('brewery.general.actions.edit'))
       end
 
