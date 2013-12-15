@@ -1,0 +1,11 @@
+<h1><%= I18n.t 'brewery.admin.dashboard.search' %></h1>
+
+<section>
+	<% @search_results.each do |dashboard_module, search_query| %>
+		<% if search_query.count > 0 %>
+			<h2><%= dashboard_module.title %></h2>
+
+			<%= render partial: "brewery/admin/#{dashboard_module.directory}/search", object: search_query %>
+		<% end %>
+	<% end %>
+</section>

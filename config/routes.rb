@@ -11,6 +11,7 @@ Brewery::Engine.routes.draw do
 
   namespace :admin do
     get '/', action: :index, controller: :dashboard
+    get '/search', action: :search, controller: :dashboard, as: :search
 
     scope module: :auth_core, as: :auth_core do
       resources :users

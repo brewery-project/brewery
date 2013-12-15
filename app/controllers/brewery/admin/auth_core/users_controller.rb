@@ -21,6 +21,15 @@ module Brewery
       def self.glyphicon
         return 'user'
       end
+
+      def self.search(q)
+        q = "%#{q}%"
+        AuthCore::User.where("other_names ILIKE ? OR family_name ILIKE ? OR email ILIKE ?", q, q, q)
+      end
+
+      def self.directory
+        return 'auth_core/users'
+      end
     end
 
     class CrumbModule

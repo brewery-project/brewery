@@ -26,11 +26,22 @@ module Brewery
         def self.glyphicon
             return 'home'
         end
+
+        def self.search(query)
+            []
+        end
     end
 
     def index
         @dashboard_modules = @@modules.flatten.select { |a_module| a_module.can?(current_ability) }
         render :index
+    end
+
+    def search
+        dashboard_modules = @@modules.flatten.select { |a_module| a_module.can?(current_ability) }
+        @search_results = dashboard_modules.map { |m| [m, m.search(params[:q]) ] }
+
+        render :search
     end
 
     def self.register_module(dashboard_module, priority)
