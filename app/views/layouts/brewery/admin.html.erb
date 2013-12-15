@@ -1,7 +1,7 @@
 <% content_for :content do %>
 	<%= render_crumbs %>
 
-    <%= form_tag admin_search_path, method: 'GET' do |form| %>
+    <%= form_tag brewery.admin_search_path, method: 'GET' do |form| %>
         <input type="search" name="q" />
 
         <input type="submit" value="Search" />
