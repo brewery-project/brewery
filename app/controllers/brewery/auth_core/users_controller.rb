@@ -43,6 +43,23 @@ module Brewery
       end
     end
 
+    def edit
+      authorize! :update, current_user
+      @user = current_user
+    end
+
+    def update
+      authorize! :update, current_user
+
+      if current_user.update_attributes(user_params(false))
+        redirect_to edit_auth_core_users_path, success: I18n.t('update.success', scope: i18n_scope)
+      else
+        @user = current_user
+        flash.now[:error] = I18n.t('update.failure', scope: i18n_scope)
+        render :edit
+      end
+    end
+
     def self.next_url(user, controller_for_url_helpers)
       if user.persisted?
         return controller_for_url_helpers.main_app.root_url

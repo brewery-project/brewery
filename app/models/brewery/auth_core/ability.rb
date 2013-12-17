@@ -27,6 +27,7 @@ module Brewery
         can :manage, AuthCore::User
       end
 
+      can :update, user
       can :destroy, AuthCore::UserSession
     end
 

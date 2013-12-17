@@ -1,0 +1,19 @@
+<h1><%= t 'brewery.auth_core.users.edit' %></h1>
+
+<%= render partial: 'brewery/auth_core/users/edit_menu' %>
+
+<%= simple_form_for @user, url: auth_core_users_path, html: { class: 'form-vertical' } do |edit_form| %>
+    <%= edit_form.input :other_names %>
+    <%= edit_form.input :family_name %>
+	<%= edit_form.input :email %>
+
+    <fieldset>
+        <legend><%= t '.password_edit' %></legend>
+	   <%= edit_form.input :password %>
+	   <%= edit_form.input :password_confirmation %>
+    </fieldset>
+
+	<div class="form-actions">
+		<%= edit_form.submit class: ['btn', 'btn-primary'] %>
+	</div>
+<% end %>

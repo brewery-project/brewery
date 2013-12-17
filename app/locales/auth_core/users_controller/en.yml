@@ -8,3 +8,6 @@ en:
         confirm:
           success: Your account is now fully activated.
           failure: We were not able to activate this account.
+        update:
+          success: Your profile has been updated
+          failure: We were not able to update your profile

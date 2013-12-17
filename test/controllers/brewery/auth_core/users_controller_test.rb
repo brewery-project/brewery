@@ -131,5 +131,47 @@ module Brewery
         end
       end
     end
+
+    test "it can edit" do
+      user = FactoryGirl.create(:user)
+      login_as(user)
+
+      get :edit, use_route: :brewery
+
+      assert_template :edit
+      assert_not_nil assigns[:user]
+    end
+
+    test "it can not edit as anon user" do
+      get :edit, use_route: :brewery
+
+      assert_redirected_to Brewery::Engine.routes.url_helpers.auth_core_login_path
+    end
+
+    test "it can update" do
+      user = FactoryGirl.create(:user)
+      login_as(user)
+
+      patch :update, auth_core_user: { other_names: 'Change', family_name: 'This' }, use_route: :brewery
+
+      assert_redirected_to Brewery::Engine.routes.url_helpers.edit_auth_core_users_path
+
+      user.reload
+      assert_equal 'Change', user.other_names
+      assert_equal 'This', user.family_name
+      assert_nil flash[:error]
+      assert_not_nil flash[:success]
+    end
+
+    test "it can fail to update" do
+      user = FactoryGirl.create(:user)
+      login_as(user)
+
+      patch :update, auth_core_user: { password: 'Changed', password_confirmation: 'Changed But Not The ams' }, use_route: :brewery
+
+      assert_template :edit
+      assert_not_nil assigns[:user]
+      assert_not_nil flash[:error]
+    end
   end
 end
