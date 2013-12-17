@@ -107,7 +107,7 @@ module Brewery
 
       post :create, { auth_core_user: user_attributes, use_route: :brewery }
 
-      assert_redirected_to(custom_signup_path)
+      assert_redirected_to(custom_signup_path(locale: 'en'))
       assert_response :redirect
       flash[:success].wont_be_nil
       flash[:error].must_be_nil
@@ -145,7 +145,7 @@ module Brewery
     test "it can not edit as anon user" do
       get :edit, use_route: :brewery
 
-      assert_redirected_to Brewery::Engine.routes.url_helpers.auth_core_login_path
+      assert_redirected_to Brewery::Engine.routes.url_helpers.auth_core_login_path(locale: 'en')
     end
 
     test "it can update" do
@@ -154,7 +154,7 @@ module Brewery
 
       patch :update, auth_core_user: { other_names: 'Change', family_name: 'This' }, use_route: :brewery
 
-      assert_redirected_to Brewery::Engine.routes.url_helpers.edit_auth_core_users_path
+      assert_redirected_to Brewery::Engine.routes.url_helpers.edit_auth_core_users_path(locale: 'en')
 
       user.reload
       assert_equal 'Change', user.other_names

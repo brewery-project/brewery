@@ -34,8 +34,8 @@ module Brewery
 
       assert_response :success
       assert_nil flash[:error]
-      assert_select 'a[href="/admin/users"]', 1
-      assert_select 'a[href="/"]', 3
+      assert_select 'a[href="/en/admin/users"]', 1
+      assert_select 'a[href="/en"]', 3
     end
 
     test "test index display extra modules if available" do
@@ -46,8 +46,8 @@ module Brewery
 
       assert_response :success
       assert_nil flash[:error]
-      assert_select 'a[href="/admin/users"]', 1
-      assert_select 'a[href="/"]', 4
+      assert_select 'a[href="/en/admin/users"]', 1
+      assert_select 'a[href="/en"]', 4
     end
 
     test "test index does not display extra modules if not available" do
@@ -58,8 +58,8 @@ module Brewery
 
       assert_response :success
       assert_nil flash[:error]
-      assert_select 'a[href="/admin/users"]', 1
-      assert_select 'a[href="/"]', 3
+      assert_select 'a[href="/en/admin/users"]', 1
+      assert_select 'a[href="/en"]', 3
     end
 
     test "index is denied as non admin user" do

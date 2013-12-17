@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
   def index
     render text: 'DUMMY APP'
   end
+
+  def default_url_options
+    { locale: 'en' }
+  end
 end
