@@ -28,7 +28,7 @@ module Brewery
       end
 
       def self.directory
-        return 'berwery/admin/auth_core/users'
+        return 'brewery/admin/auth_core/users'
       end
     end
 
