@@ -5,7 +5,7 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'authlogic', '~> 3.3.0', git: 'https://github.com/binarylogic/authlogic.git'
+gem 'scrypt'
 
 group :assets do
    gem 'therubyracer', platforms: :ruby
