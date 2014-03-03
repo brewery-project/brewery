@@ -6,6 +6,7 @@ module Brewery
     acts_as_authentic do |config|
       config.logged_in_timeout = 1.hours
       config.disable_perishable_token_maintenance = true
+      config.crypto_provider = Authlogic::CryptoProviders::Sha512
     end
 
     before_create do
