@@ -10,5 +10,14 @@ module Brewery
         format.html
       end
     end
+
+    def request_new_password(user)
+      @user = user
+
+      mail(to: user.email,
+           subject: I18n.t('user.mailer.reset_new_password.subject', app_name: I18n.t('global.app_name'))) do |format|
+        format.html
+      end
+    end
   end
 end
