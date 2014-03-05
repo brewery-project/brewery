@@ -4,6 +4,9 @@ module Brewery
     class AuthCore::PasswordResetsController < ApplicationController
         before_action :find_user, only: [:edit, :update]
 
+        def new
+        end
+
         def create
             @user = AuthCore::User.find_by_email(params[:email])
 

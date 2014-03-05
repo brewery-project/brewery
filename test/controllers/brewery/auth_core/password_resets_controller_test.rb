@@ -2,6 +2,15 @@ require 'test_helper'
 
 module Brewery
     class AuthCore::PasswordResetsControllerTest < ActionController::TestCase
+        test "request a new password screen" do
+            user = FactoryGirl.create(:user)
+
+            get :new, use_route: :brewery
+
+            assert_response :success
+            assert_template :new
+        end
+
         test "request a new password" do
             user = FactoryGirl.create(:user)
 

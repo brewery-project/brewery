@@ -6,7 +6,8 @@ Brewery::Engine.routes.draw do
         get '/confirm/:key', action: :confirm, as: :confirm
       end
 
-      get '/password/reset', action: :create, controller: :password_resets
+      get '/password/reset', action: :new, controller: :password_resets
+      post '/password/reset', action: :create, controller: :password_resets
       get '/password/edit/:id', action: :edit, controller: :password_resets
       patch '/password/reset', action: :update, controller: :password_resets
 
