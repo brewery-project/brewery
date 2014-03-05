@@ -3,3 +3,5 @@ en:
     mailer:
       welcome_after_signup:
         subject: "Welcome to %{app_name}"
+      reset_new_password:
+        subject: "Your password on %{app_name}"

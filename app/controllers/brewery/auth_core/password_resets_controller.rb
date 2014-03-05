@@ -9,9 +9,10 @@ module Brewery
 
         def create
             @user = AuthCore::User.find_by_email(params[:email])
-
-            @user.reset_perishable_token!
-            AuthCore::UserMailer.request_new_password(@user).deliver
+            if !@user.nil?
+                @user.reset_perishable_token!
+                AuthCore::UserMailer.request_new_password(@user).deliver
+            end
 
             redirect_to main_app.root_path
         end
@@ -20,7 +21,12 @@ module Brewery
         end
 
         def update
-            redirect_to main_app.root_path
+
+            if @user.update_attributes(password_attributes)
+                redirect_to main_app.root_path
+            else
+                render :edit
+            end
         end
 
         private
@@ -32,6 +38,10 @@ module Brewery
             end
 
             return true
+        end
+
+        def password_attributes
+            params.require(:auth_core_user).permit(:password, :password_confirmation)
         end
     end
 end
