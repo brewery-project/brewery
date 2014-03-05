@@ -8,7 +8,7 @@ Brewery::Engine.routes.draw do
 
       get '/password/reset', action: :new, controller: :password_resets
       post '/password/reset', action: :create, controller: :password_resets
-      get '/password/edit/:id', action: :edit, controller: :password_resets
+      get '/password/edit/:id', action: :edit, controller: :password_resets, as: :password_modify
       patch '/password/reset', action: :update, controller: :password_resets
 
 
