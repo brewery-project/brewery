@@ -24,6 +24,7 @@ module Brewery
 
             assert_response :redirect
             assert_redirected_to root_path(locale: 'en')
+            assert_not_nil flash[:success]
         end
 
         test "request a new password with invalid email" do
@@ -39,6 +40,7 @@ module Brewery
 
             assert_response :redirect
             assert_redirected_to root_path(locale: 'en')
+            assert_not_nil flash[:success]
         end
 
         test "modify password screen" do

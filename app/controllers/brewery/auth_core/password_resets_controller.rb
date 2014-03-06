@@ -14,6 +14,8 @@ module Brewery
                 AuthCore::UserMailer.request_new_password(@user).deliver
             end
 
+            flash[:success] = I18n.t('brewery.auth_core.password_resets_controller.sent_mail')
+
             redirect_to main_app.root_path
         end
 

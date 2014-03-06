@@ -1,0 +1,5 @@
+en:
+  brewery:
+    auth_core:
+      password_resets_controller:
+        sent_mail: We've sent an email to the address you provided with instructions to reset your password.
