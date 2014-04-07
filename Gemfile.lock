@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    brewery (0.0.1)
+    brewery (0.0.2)
       authlogic (~> 3.4.0)
       bootstrap-sass (~> 3.0.3.0)
       cancan (~> 1.6.8)
@@ -95,7 +95,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     minitest (4.7.5)
-    multi_json (1.8.4)
+    multi_json (1.9.0)
     polyglot (0.3.4)
     rack (1.5.2)
     rack-test (0.6.2)

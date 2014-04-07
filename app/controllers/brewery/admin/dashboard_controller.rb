@@ -39,7 +39,14 @@ module Brewery
 
     def search
         dashboard_modules = @@modules.flatten.select { |a_module| a_module.can?(current_ability) }
-        @search_results = dashboard_modules.map { |m| [m, m.search(params[:q]) ] }
+        @search_results = dashboard_modules.map do |m|
+            search_results = m.search(params[:q])
+            if search_results.nil? || search_results.is_a?(Array)
+                [m, search_results]
+            else
+                [m, search_results.accessible_by(current_ability)]
+            end
+        end
 
         render :search
     end
