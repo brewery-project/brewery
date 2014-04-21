@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'foreigner'
   s.add_dependency 'crummy'
   s.add_dependency 'email_validator'
-  s.add_dependency 'simple_form', '~> 3.0.0'
+  s.add_dependency 'simple_form', '~> 3.0'
 
   s.add_development_dependency "rdoc"
   s.add_development_dependency "sqlite3"
