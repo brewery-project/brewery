@@ -21,7 +21,7 @@ module Brewery
             helper_method :current_user
 
             def current_ability
-                @current_ability ||= AuthCore::Ability.new(current_user)
+                @current_ability ||= AuthCore::Ability.new(current_user, extra_ability_parameters)
             end
 
             protected

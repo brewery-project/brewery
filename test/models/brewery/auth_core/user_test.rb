@@ -208,7 +208,7 @@ module Brewery
     end
 
     class Ability
-      def initialize(user, master)
+      def initialize(user, master, extra_parameters = {})
         return if user.nil?
         master.can :love, Brewery::AuthCore::User
       end
@@ -218,7 +218,7 @@ module Brewery
       AuthCore::Ability.add_extra_ability_class_name('Brewery::AuthCore::UserTest::Ability')
 
       user = FactoryGirl.build(:user)
-      ability = Brewery::AuthCore::Ability.new(user)
+      ability = Brewery::AuthCore::Ability.new(user, {})
 
       assert ability.can?(:love, Brewery::AuthCore::User)
       assert_not ability.can?(:love2, Brewery::AuthCore::User)

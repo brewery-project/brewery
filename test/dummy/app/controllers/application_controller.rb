@@ -10,4 +10,9 @@ class ApplicationController < ActionController::Base
   def default_url_options
     { locale: 'en' }
   end
+
+  protected
+  def extra_ability_parameters
+    {}
+  end
 end

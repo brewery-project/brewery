@@ -9,10 +9,10 @@ module Brewery
       @@extra_classes << class_name.constantize
     end
 
-    def initialize(user)
+    def initialize(user, extra_parameters)
       self.object = user
       @@extra_classes.each do |extra_class|
-        extra_class.new(user, self)
+        extra_class.new(user, self, extra_parameters)
       end
 
       anonymous and return if user.nil?
