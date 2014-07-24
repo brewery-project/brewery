@@ -32,6 +32,9 @@ en:
         family_name: Family Name
         e_mail: E-Mail
         display_name: Display Name
+    errors:
+      brewery/auth_core/user_session:
+        blocked: You have been blocked on this website. Contact the system administrator for more info.
   helpers:
     submit:
       auth_core_user:

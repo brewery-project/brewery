@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130109204211) do
+ActiveRecord::Schema.define(version: 20140724111457) do
 
   create_table "brewery_auth_core_roles", force: true do |t|
     t.string  "name",              limit: 128
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20130109204211) do
     t.string   "current_login_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "blocked",             default: false
   end
 
   add_index "brewery_auth_core_users", ["email"], name: "index_brewery_auth_core_users_on_email", unique: true
