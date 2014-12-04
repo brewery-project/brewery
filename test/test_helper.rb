@@ -7,7 +7,7 @@ Coveralls.wear!('rails')
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 
-require "minitest/spec"
+require "minitest/rails"
 require "authlogic/test_case"
 
 require 'factory_girl_rails'

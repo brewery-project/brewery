@@ -16,24 +16,25 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 4.0.1"
-  s.add_dependency "sass-rails", "~> 4.0.1"
-  s.add_dependency "jquery-rails", "~> 2.2.1"
-  s.add_dependency "coffee-rails", "~> 4.0.1"
-  s.add_dependency "turbolinks", "~> 1.3.0"
+  s.add_dependency "rails", "~> 4.1"
+  s.add_dependency "sass-rails", "~> 4.0"
+  s.add_dependency "jquery-rails", "~> 3.1"
+  s.add_dependency "coffee-rails", "~> 4.1"
+  s.add_dependency "turbolinks", "~> 2.5"
 
-  s.add_dependency 'authlogic', '~> 3.4.0'
-  s.add_dependency 'bootstrap-sass', '~> 3.0.3.0'
-  s.add_dependency 'cancan', '~> 1.6.8'
-  s.add_dependency 'will_paginate', '~> 3.0.4'
+  s.add_dependency 'authlogic', '~> 3.4'
+  s.add_dependency 'bootstrap-sass', '~> 3.2'
+  s.add_dependency 'cancancan', '~> 1.9'
+  s.add_dependency 'will_paginate', '~> 3.0'
   s.add_dependency 'foreigner'
   s.add_dependency 'crummy'
   s.add_dependency 'email_validator'
   s.add_dependency 'simple_form', '~> 3.0'
 
+  s.add_development_dependency "minitest-rails"
   s.add_development_dependency "rdoc"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "rails_best_practices"
+  s.add_development_dependency "rails_best_practices", '~> 1.15'
   s.add_development_dependency "coveralls"
-  s.add_development_dependency "factory_girl_rails", "~> 4.0"
+  s.add_development_dependency "factory_girl_rails", "~> 4.5"
 end
