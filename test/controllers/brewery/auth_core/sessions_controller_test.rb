@@ -16,7 +16,7 @@ module Brewery
       user = FactoryGirl.create(:user, password: 'iknowit')
       assert_nil AuthCore::UserSession.find
 
-      post :create, { brewery_auth_core_user_session: { email: user.email, password: user.password }, use_route: :brewery }
+      post :create, { auth_core_user_session: { email: user.email, password: user.password }, use_route: :brewery }
 
       assert_response :redirect
       session = AuthCore::UserSession.find
@@ -31,7 +31,7 @@ module Brewery
       assert_nil AuthCore::UserSession.find
       user = FactoryGirl.create(:user, password: 'iknowit')
       assert_nil AuthCore::UserSession.find
-      post :create, { brewery_auth_core_user_session: { email: user.email, password: 'ormaybeiamwrong' }, use_route: :brewery }
+      post :create, { auth_core_user_session: { email: user.email, password: 'ormaybeiamwrong' }, use_route: :brewery }
 
       assert_response :success
       assert_template :new

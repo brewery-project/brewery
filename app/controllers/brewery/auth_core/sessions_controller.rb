@@ -31,7 +31,7 @@ module Brewery
 
     private
     def user_session_params
-      params.require(:brewery_auth_core_user_session).permit(:email, :password)
+      params.require(:auth_core_user_session).permit(:email, :password)
     end
   end
 end
