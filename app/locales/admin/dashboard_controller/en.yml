@@ -1,7 +1,0 @@
-en:
-  brewery:
-    admin:
-        dashboard:
-            go_to_site: Go To Site
-            dashboard: Dashboard
-        title: Admin
