@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass', '~> 3.2'
   s.add_dependency 'cancancan', '~> 1.9'
   s.add_dependency 'will_paginate', '~> 3.0'
-  s.add_dependency 'foreigner'
+  #s.add_dependency 'foreigner'
   s.add_dependency 'crummy'
   s.add_dependency 'email_validator'
   s.add_dependency 'simple_form', '~> 3.0'

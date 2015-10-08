@@ -11,7 +11,6 @@ require "authlogic"
 require "cancan"
 require "will_paginate"
 require "crummy"
-require "foreigner"
 require "email_validator"
 require "simple_form"
 
