@@ -17,9 +17,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.2.4"
-  s.add_dependency "sass-rails", "~> 5.0"
-  s.add_dependency "jquery-rails", "~> 3.1.2"
-  s.add_dependency "coffee-rails", "~> 4.1"
+  #s.add_dependency "sass-rails", "~> 5.0"
+  #s.add_dependency "jquery-rails", "~> 3.1.2"
+  #s.add_dependency "coffee-rails", "~> 4.1"
   s.add_dependency "turbolinks", "~> 2.5"
 
   s.add_dependency 'authlogic', '~> 3.4'
