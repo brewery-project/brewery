@@ -38,7 +38,7 @@ module Brewery
             private
             def on_access_denied
                 if current_user.nil?
-                  redirect_to brewery.auth_core_login_path, error: I18n.t('brewery.auth_core.sessions.permission_denied_anonymous')
+                  redirect_to brewery.auth_core_login_path(r: request.original_fullpath), error: I18n.t('brewery.auth_core.sessions.permission_denied_anonymous')
                 else
                   redirect_to main_app.root_path, error: I18n.t('brewery.auth_core.sessions.permission_denied')
                 end

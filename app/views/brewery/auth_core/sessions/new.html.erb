@@ -1,6 +1,6 @@
 <h1><%= t 'brewery.auth_core.sessions.login' %></h1>
 
-<%= simple_form_for @user_session, url: auth_core_login_path, html: { class: 'form-horizontal' } do |sigin_form| %>
+<%= simple_form_for @user_session, url: auth_core_login_path(r: params[:r]), html: { class: 'form-horizontal' } do |sigin_form| %>
     <%= sigin_form.input :email %>
     <%= sigin_form.input :password %>
 

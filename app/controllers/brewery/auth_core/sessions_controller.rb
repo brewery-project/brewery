@@ -13,7 +13,12 @@ module Brewery
 
       @user_session = AuthCore::UserSession.new(user_session_params)
       if @user_session.save
-        redirect_to main_app.root_url, success: I18n.t('create.success', scope: i18n_scope)
+        if params[:r]
+          r = params[:r].to_s
+        else
+          r = main_app.root_url
+        end
+        redirect_to r, success: I18n.t('create.success', scope: i18n_scope)
       else
         flash.now[:error] = I18n.t('create.failure', scope: i18n_scope)
         render :new
