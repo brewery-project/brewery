@@ -12,7 +12,8 @@ module Brewery
       rescue_from ActiveRecord::RecordNotFound do |ex|
         flash.now[:error] = ex.message
 
-        instance_variable_set("@#{self.class.resource_name.pluralize}", self.class.resource_class.paginate(page: params['page']))
+        instance_variable_set("@#{self.class.resource_name.pluralize}",
+                               self.class.resource_class.accessible_by(current_ability).paginate(page: params['page']))
         render :index, status: 404
       end
 
