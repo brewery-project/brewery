@@ -3,7 +3,7 @@ module Brewery
     @@extra_classes = []
     include CanCan::Ability
 
-    attr_accessor :object
+    attr_accessor :object, :extras
 
     def self.add_extra_ability_class_name(class_name)
       @@extra_classes << class_name.constantize
@@ -11,8 +11,9 @@ module Brewery
 
     def initialize(user, extra_parameters)
       self.object = user
+      self.extras = []
       @@extra_classes.each do |extra_class|
-        extra_class.new(user, self, extra_parameters)
+        extras << extra_class.new(user, self, extra_parameters)
       end
 
       anonymous and return if user.nil?
@@ -36,6 +37,10 @@ module Brewery
     def anonymous
       can :manage, AuthCore::UserSession
       can :create, AuthCore::User
+
+      extras.each do |extra|
+        extra.anonymous if extra.respond_to?(:anonymous)
+      end
     end
   end
 end
