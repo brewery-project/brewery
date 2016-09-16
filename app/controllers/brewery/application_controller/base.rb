@@ -7,7 +7,7 @@ module Brewery
             add_flash_types :error, :success, :info
             rescue_from CanCan::AccessDenied, with: :on_access_denied
 
-            around_filter :user_time_zone, :if => :current_user
+            around_action :user_time_zone, :if => :current_user
 
             def current_user_session
                 return @current_user_session if defined?(@current_user_session)

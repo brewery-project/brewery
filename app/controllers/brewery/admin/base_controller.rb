@@ -7,7 +7,7 @@ module Brewery
       end
       layout 'brewery/admin'
 
-      before_filter :add_base_crumb
+      before_action :add_base_crumb
 
       rescue_from ActiveRecord::RecordNotFound do |ex|
         flash.now[:error] = ex.message
@@ -27,11 +27,11 @@ module Brewery
       end
 
       def self.register_admin_crumbs
-        self.before_filter :index_crumb, except: [:index]
-        self.before_filter :on_index_crumb, only: [:index]
-        self.before_filter :on_show_crumb, only: [:show]
-        self.before_filter :on_edit_crumb, only: [:edit, :update]
-        self.before_filter :on_new_crumb, only: [:new, :create]
+        self.before_action :index_crumb, except: [:index]
+        self.before_action :on_index_crumb, only: [:index]
+        self.before_action :on_show_crumb, only: [:show]
+        self.before_action :on_edit_crumb, only: [:edit, :update]
+        self.before_action :on_new_crumb, only: [:new, :create]
       end
 
       def index_crumb
