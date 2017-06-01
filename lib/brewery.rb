@@ -5,7 +5,6 @@ require "jquery-rails"
 require "sass-rails"
 require "coffee-rails"
 require "bootstrap-sass"
-require "turbolinks"
 
 require "authlogic"
 require "cancan"
