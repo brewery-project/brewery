@@ -2,7 +2,6 @@ require "brewery/engine"
 require "brewery/auth_core"
 
 require "jquery-rails"
-require "sass-rails"
 require "coffee-rails"
 require "bootstrap-sass"
 
