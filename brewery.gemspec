@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   #s.add_dependency 'foreigner'
   s.add_dependency 'crummy'
   s.add_dependency 'email_validator'
-  s.add_dependency 'simple_form', '~> 3.0'
+  s.add_dependency 'simple_form', '> 3.0'
 
   s.add_development_dependency "minitest-rails"
   s.add_development_dependency "rdoc"
