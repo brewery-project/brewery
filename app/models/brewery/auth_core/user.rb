@@ -7,8 +7,8 @@ module Brewery
       config.logged_in_timeout = 1.hours
       config.disable_perishable_token_maintenance = true
       config.crypto_provider = Authlogic::CryptoProviders::Sha512
-      config.validates_uniqueness_of_email_field_options(scope: :tenant_id)
-      config.validates_length_of_password_field_options = { minimum: 4, if: :require_password? }
+      config.validates_uniqueness_of_email_field_options(scope: :tenant_id, conditions: -> { where(archived_at: nil) } )
+      config.validate_password_field = false
     end
 
     before_create do
