@@ -45,7 +45,8 @@ module Brewery
             end
 
             def user_time_zone(&block)
-                Time.use_zone('Europe/Brussels', &block)
+                # Time.use_zone('Europe/Brussels', &block)
+                yield block
             end
         end
     end
