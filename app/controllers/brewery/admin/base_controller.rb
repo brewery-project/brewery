@@ -2,9 +2,7 @@ module Brewery
   module Admin::BaseController
     extend ActiveSupport::Concern
     included do
-      before_action do
-        authorize! :access, :admin
-      end
+      before_action :authorize_admin_access
       layout 'brewery/admin'
 
       before_action :add_base_crumb
@@ -15,6 +13,10 @@ module Brewery
         instance_variable_set("@#{self.class.resource_name.pluralize}",
                                self.class.resource_class.accessible_by(current_ability).paginate(page: params['page']))
         render :index, status: 404
+      end
+
+      def authorize_admin_access
+        authorize! :access, :admin
       end
 
       protected
