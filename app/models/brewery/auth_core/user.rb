@@ -21,7 +21,7 @@ module Brewery
       end
     end
 
-    validates :new_email, email: true, allow_blank: true
+    validates :new_email, format: {with: /\A[^[:cntrl:][@\[\]\^ \!\"#$\(\)*,\/:;<=>\?`{|}~\\]]+@(?:[^[:cntrl:][@\[\]\^ \!\"#$&\(\)*,\/:;<=>\?`{|}~\\_\.%\+']]+\.)+(?:[^[:cntrl:][@\[\]\^ \!\"#$&\(\)*,\/:;<=>\?`{|}~\\_\.%\+\-'0-9]]{2,25})\z/, message: "Please enter a valid email" }, allow_blank: true
 
     def display_name
       if !other_names.blank?
