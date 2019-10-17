@@ -21,7 +21,7 @@ module Brewery
       end
     end
 
-    validates :new_email, email: true, allow_blank: true
+    validates :new_email, format: {with: Authlogic::Regex.email_nonascii }, allow_blank: true
 
     def display_name
       if !other_names.blank?
