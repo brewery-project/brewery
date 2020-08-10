@@ -7,8 +7,8 @@ module Brewery
       config.logged_in_timeout = 1.hours
       config.disable_perishable_token_maintenance = true
       config.crypto_provider = Authlogic::CryptoProviders::Sha512
-      config.validates_uniqueness_of_email_field_options(scope: :tenant_id, conditions: -> { where(archived_at: nil) } )
-      config.validate_password_field = false
+      # config.validates_uniqueness_of_email_field_options(scope: :tenant_id, conditions: -> { where(archived_at: nil) } )
+      # config.validate_password_field = false
     end
 
     before_create do
@@ -21,7 +21,32 @@ module Brewery
       end
     end
 
-    validates :new_email, format: {with: Authlogic::Regex.email_nonascii }, allow_blank: true
+    EMAIL_REGEX = /
+      \A
+      [A-Z0-9_.&%+\-']+   # mailbox
+      @
+      (?:[A-Z0-9\-]+\.)+  # subdomains
+      (?:[A-Z]{2,25})     # TLD
+      \z
+    /ix
+    validates :new_email, format: { with: EMAIL_REGEX }, allow_blank: true
+    validates :email,
+      format: {
+        with: EMAIL_REGEX,
+        message: proc {
+          ::Authlogic::I18n.t(
+            "error_messages.email_invalid",
+            default: "should look like an email address."
+          )
+        }
+      },
+      length: { maximum: 100 },
+      uniqueness: {
+        case_sensitive: false,
+        if: :will_save_change_to_email?,
+        scope: :tenant_id,
+        conditions: -> { where(archived_at: nil) }
+      }
 
     def display_name
       if !other_names.blank?

@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   #s.add_dependency "jquery-rails", "~> 3.1.2"
   #s.add_dependency "coffee-rails", "~> 4.1"
 
-  s.add_dependency 'authlogic', '~> 3.4'
+  s.add_dependency 'authlogic'
   s.add_dependency 'bootstrap-sass', '~> 3.2'
   s.add_dependency 'cancancan', '~> 3.1'
   s.add_dependency 'will_paginate', '~> 3.0'
