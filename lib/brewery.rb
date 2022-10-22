@@ -1,10 +1,6 @@
 require "brewery/engine"
 require "brewery/auth_core"
 
-require "jquery-rails"
-require "coffee-rails"
-require "bootstrap-sass"
-
 require "authlogic"
 require "cancan"
 require "will_paginate"
